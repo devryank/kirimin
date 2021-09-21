@@ -57,30 +57,44 @@ class PermissionsDemoSeeder extends Seeder
         $role2->givePermissionTo('update users'); // update own account
         $role2->givePermissionTo('delete users'); // delete own account
 
-        $role3 = Role::create(['name' => 'user']);
+        $role3 = Role::create(['name' => 'seller']);
         $role3->givePermissionTo('read users');
         $role3->givePermissionTo('update users'); // update own account
         $role3->givePermissionTo('delete users'); // delete own account
 
+        $role4 = Role::create(['name' => 'user']);
+        $role4->givePermissionTo('read users');
+        $role4->givePermissionTo('update users'); // update own account
+        $role4->givePermissionTo('delete users'); // delete own account
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
         $user = \App\Models\User::factory()->create([
             'name' => 'Super-Admin User',
             'email' => 'superadmin@app.test',
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
         ]);
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@app.test',
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
         ]);
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'User',
-            'email' => 'user@app.test',
+            'name' => 'Seller',
+            'email' => 'seller@app.test',
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
         ]);
         $user->assignRole($role3);
+
+        $user = \App\Models\User::factory()->create([
+            'name' => 'User',
+            'email' => 'user@app.test',
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
+        ]);
+        $user->assignRole($role4);
     }
 }
