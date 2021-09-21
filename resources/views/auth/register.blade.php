@@ -33,7 +33,7 @@
 
             <div class="mt-4">
                 <x-jet-label for="province" value="Provinsi" />
-                <select name="province" id="mySelect"
+                <select name="province" id="province"
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full"
                     required>
                     @foreach ($provinces->provinsi as $province)
@@ -44,10 +44,17 @@
 
             <div class="mt-4">
                 <x-jet-label for="city" value="Kota" />
-                <select name="city" id="kota"
+                <select name="city" id="city"
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full"
                     required>
+                </select>
+            </div>
 
+            <div class="mt-4">
+                <x-jet-label for="kecamatan" value="Kecamatan" />
+                <select name="kecamatan" id="kecamatan"
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full"
+                    required>
                 </select>
             </div>
 
@@ -101,23 +108,47 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 <script>
-    var mySelect = document.getElementById('mySelect');
-    mySelect.onchange = (event) => {
+    var province = document.getElementById('province');
+    province.onchange = (event) => {
+    $('#city').empty();
+    $('#kecamatan').empty();
     var province_id = event.target.value;
-    city(province_id)
+    searchCity(province_id)
  }
-    function city(province_id) {
+    function searchCity(province_id) {
         jQuery.ajax({
             url: '/city/'+province_id,
             type: "GET",
             dataType: "json",
             success: function (response) {
-                console.log(response.kota_kabupaten.length)
+                $('#city').empty();
+                    $('#city').append('<option>-- Pilih Kota --</option>');
                 for (let index = 0; index < response.kota_kabupaten.length; index++) {
-                    $('#kota').append('<option value=' + response.kota_kabupaten[index].id + '>' + response.kota_kabupaten[index].nama + '</option>');
+                    $('#city').append('<option value=' + response.kota_kabupaten[index].id + '>' + response.kota_kabupaten[index].nama + '</option>');
                 }
             }
         });
     }
+
+    var city = document.getElementById('city');
+    city.onchange = (event) => {
+    var city_id = event.target.value;
+    searchKecamatan(city_id)
+ }
+    function searchKecamatan(city_id) {
+        jQuery.ajax({
+            url: '/kecamatan/'+city_id,
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                $('#kecamatan').empty();
+                    $('#kecamatan').append('<option>-- Pilih Kecamatan --</option>');
+                for (let index = 0; index < response.kecamatan.length; index++) {
+                    $('#kecamatan').append('<option value=' + response.kecamatan[index].id_kota + '>' + response.kecamatan[index].nama + '</option>');
+                }
+            }
+        });
+    }
+
 
 </script>

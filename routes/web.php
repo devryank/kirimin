@@ -30,3 +30,4 @@ Route::name('dashboard.')
     });
 
 Route::get('/city/{id}', [App\Http\Controllers\AddressController::class, 'city']);
+Route::get('/kecamatan/{id}', [App\Http\Controllers\AddressController::class, 'kecamatan']);
