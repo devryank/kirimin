@@ -14,7 +14,7 @@ class AddAddressToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->text('address');
+            $table->longText('address')->after('password');
         });
     }
 
