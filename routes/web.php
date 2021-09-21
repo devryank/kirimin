@@ -28,3 +28,5 @@ Route::name('dashboard.')
         Route::get('/users', App\Http\Livewire\User\Index::class)->name('user.index');
         Route::get('/roles', App\Http\Livewire\Role\Index::class)->name('role.index');
     });
+
+Route::get('/city/{id}', [App\Http\Controllers\AddressController::class, 'city']);
