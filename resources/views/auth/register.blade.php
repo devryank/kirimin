@@ -11,14 +11,14 @@
 
             <div>
                 <x-jet-label for="name" value="Nama Lengkap" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
-                    autofocus autocomplete="name" />
+                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
+                    placeholder="John Doe" required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="email" value="E-mail" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                    required />
+                    placeholder="johndoe@gmail.com" required />
             </div>
 
             <div class="mt-4">
@@ -29,6 +29,12 @@
                     <option value="seller">Penjual</option>
                     <option value="user">Pembeli</option>
                 </select>
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="phone" value="Nomor HP" />
+                <x-jet-input id="phone" class="block mt-1 w-full" type="number" name="phone" :value="old('phone')"
+                    placeholder="08xx" required autofocus autocomplete="phone" />
             </div>
 
             <div class="mt-4">
@@ -56,6 +62,44 @@
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full"
                     required>
                 </select>
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="kelurahan" value="Kelurahan" />
+                <select name="kelurahan" id="kelurahan"
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full"
+                    required>
+                </select>
+            </div>
+
+
+            <div class="mt-4">
+                <x-jet-label for="jalan" value="Nama Jalan" />
+                <x-jet-input id="jalan" class="block mt-1 w-full" type="text" name="jalan" :value="old('jalan')"
+                    required autofocus />
+            </div>
+
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-6 mt-4">
+                    <x-jet-label for="rw" value="RW" />
+                    <x-jet-input id="rw" class="block mt-1 w-full" type="number" name="rw" :value="old('rw')" required
+                        autofocus autocomplete="rw" />
+                </div>
+                <div class="col-span-6 mt-4">
+                    <x-jet-label for="rt" value="RT" />
+                    <x-jet-input id="rt" class="block mt-1 w-full" type="number" name="rt" :value="old('rt')" required
+                        autofocus autocomplete="rt" />
+                </div>
+                <div class="col-span-6 mt-4">
+                    <x-jet-label for="no" value="Nomor Rumah" />
+                    <x-jet-input id="no" class="block mt-1 w-full" type="number" name="no" :value="old('no')" required
+                        autofocus autocomplete="no" />
+                </div>
+                <div class="col-span-6 mt-4">
+                    <x-jet-label for="kodepos" value="Kode Pos" />
+                    <x-jet-input id="kodepos" class="block mt-1 w-full" type="number" name="kodepos"
+                        :value="old('kodepos')" required autofocus autocomplete="kodepos" />
+                </div>
             </div>
 
             <div class="mt-4">
@@ -110,8 +154,10 @@
 <script>
     var province = document.getElementById('province');
     province.onchange = (event) => {
+    // delete other form after change province
     $('#city').empty();
     $('#kecamatan').empty();
+    $('#kelurahan').empty();
     var province_id = event.target.value;
     searchCity(province_id)
  }
@@ -144,11 +190,31 @@
                 $('#kecamatan').empty();
                     $('#kecamatan').append('<option>-- Pilih Kecamatan --</option>');
                 for (let index = 0; index < response.kecamatan.length; index++) {
-                    $('#kecamatan').append('<option value=' + response.kecamatan[index].id_kota + '>' + response.kecamatan[index].nama + '</option>');
+                    $('#kecamatan').append('<option value=' + response.kecamatan[index].id + '>' + response.kecamatan[index].nama + '</option>');
                 }
             }
         });
     }
 
-
+    var kecamatan = document.getElementById('kecamatan');
+    kecamatan.onchange = (event) => {
+    var kecamatan_id = event.target.value;
+    searchKelurahan(kecamatan_id)
+ }
+    function searchKelurahan(kecamatan_id) {
+        jQuery.ajax({
+            url: '/kelurahan/'+kecamatan_id,
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                $('#kelurahan').empty();
+                console.log(kecamatan_id)
+                console.log(response)
+                    $('#kelurahan').append('<option>-- Pilih Kelurahan --</option>');
+                for (let index = 0; index < response.kelurahan.length; index++) {
+                    $('#kelurahan').append('<option value=' + response.kelurahan[index].id + '>' + response.kelurahan[index].nama + '</option>');
+                }
+            }
+        });
+    }
 </script>
