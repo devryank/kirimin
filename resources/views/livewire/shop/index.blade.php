@@ -98,20 +98,29 @@
                         @foreach ($shops as $shop)
                         <tr>
                             <td class="w-1/3 text-left py-3 px-4">{{$shop->name}}</td>
-                            <td class="w-1/3 text-left py-3 px-4">{{$shop->user_id}}</td>
-                            <td class="w-1/3 text-left py-3 px-4">{{$shop->address_id}}</td>
+                            <td class="w-1/3 text-left py-3 px-4">{{$shop->user->name}}</td>
+                            <td class="w-1/3 text-left py-3 px-4">
+                                {{
+                                    $shop->address->jalan . ' ' .
+                                    $shop->address->rt . '/' .
+                                    $shop->address->rw . ' no.' .
+                                    $shop->address->no . ' ' .
+                                    $shop->address->kelurahan . ', ' .
+                                    $shop->address->kecamatan . ', ' .
+                                    $shop->address->kota . ', ' .
+                                    $shop->address->provinsi . ', ' .
+                                    $shop->address->kodepos
+                                }}
+                            </td>
                             <td class="w-1/3 text-left py-3 px-4">
                                 <div class="flex space-x-2">
 
                                     @if ((Auth::user()->hasPermissionTo('update shops') AND Auth::user()->id ==
                                     $shop->id)
-                                    OR Auth::user()->hasRole('super-admin'))
+                                    OR Auth::user()->hasPermissionTo('update shops'))
                                     <button wire:click="editShop({{$shop->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
-                                    @else
-                                    <button
-                                        class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded opacity-50"
-                                        disabled>Edit</button>
+
                                     @endif
 
                                     @if ((Auth::user()->hasPermissionTo('delete shops') AND Auth::user()->id ==
@@ -120,12 +129,6 @@
                                     <button wire:click="deleteShop({{$shop->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded"
                                         onclick="scrollUp()">
-                                        Delete
-                                    </button>
-                                    @else
-                                    <button
-                                        class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded opacity-50"
-                                        disabled>
                                         Delete
                                     </button>
                                     @endif
