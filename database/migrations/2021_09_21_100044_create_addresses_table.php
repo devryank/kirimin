@@ -15,12 +15,15 @@ class CreateAddressesTable extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
+            $table->string('jalan');
             $table->string('rt');
             $table->string('rw');
+            $table->string('no');
             $table->string('kecamatan');
             $table->string('kelurahan');
             $table->string('kota');
             $table->string('provinsi');
+            $table->string('kodepos');
             $table->timestamps();
         });
     }

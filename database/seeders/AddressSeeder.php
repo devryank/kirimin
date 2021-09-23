@@ -15,12 +15,15 @@ class AddressSeeder extends Seeder
     public function run()
     {
         Address::create([
-            'rt' => '01',
-            'rw' => '01',
+            'jalan' => 'Ampera Raya',
+            'rt' => '04',
+            'rw' => '02',
+            'no' => '45',
             'kelurahan' => 'Cilandak Timur',
             'kecamatan' => 'Pasar Minggu',
             'kota' => 'Jakarta Selatan',
             'provinsi' => 'DKI Jakarta',
+            'kodepos' => '12560',
         ]);
     }
 }
