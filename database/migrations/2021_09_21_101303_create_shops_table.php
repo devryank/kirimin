@@ -19,6 +19,9 @@ class CreateShopsTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('address_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('address_id')->references('id')->on('addresses');
         });
     }
 
