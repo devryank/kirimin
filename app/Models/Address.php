@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     use HasFactory;
+
+    public function shops()
+    {
+        return $this->hasMany(Shop::class);
+    }
 }
