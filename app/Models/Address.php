@@ -9,6 +9,8 @@ class Address extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function shops()
     {
         return $this->hasMany(Shop::class);
