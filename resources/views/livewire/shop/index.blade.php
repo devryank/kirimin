@@ -124,7 +124,7 @@
                                     @endif
 
                                     @if ((Auth::user()->hasPermissionTo('delete shops') AND Auth::user()->id ==
-                                    $shop->id)
+                                    $shop->user_id)
                                     OR Auth::user()->hasRole('super-admin'))
                                     <button wire:click="deleteShop({{$shop->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded"
