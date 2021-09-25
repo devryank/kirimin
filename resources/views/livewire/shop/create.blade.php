@@ -137,6 +137,55 @@
                             @enderror
                         </div>
                         @endif
+
+                        @if ($address == 'default')
+                        <div class="md:col-span-4 sm:col-span-12">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="jalan">Nama
+                                Jalan</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="jalan" type="text"
+                                required aria-label="Nama Jalan" wire:model="jalan">
+                        </div>
+                        <div class="md:col-span-2 sm:col-span-6">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="rt">RT</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="rt" type="number"
+                                required wire:model="rt">
+                        </div>
+                        <div class="md:col-span-2 sm:col-span-6">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="rw">RW</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="rw" type="number"
+                                required wire:model="rw">
+                        </div>
+                        <div class="md:col-span-2 sm:col-span-6">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="no">Nomor</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="no" type="number"
+                                required disabled wire:model="no">
+                        </div>
+                        <div class="md:col-span-2 sm:col-span-6">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="kodepos">Kode Pos</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="kodepos" type="number"
+                                required disabled wire:model="kodepos">
+                        </div>
+                        <div class="md:col-span-3 sm:col-span-6">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="province">Provinsi</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="province" type="text"
+                                required disabled wire:model="province">
+                        </div>
+                        <div class="md:col-span-3 sm:col-span-6">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="city">Kota/Kabupaten</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="city" type="text"
+                                required disabled wire:model="city">
+                        </div>
+                        <div class="md:col-span-3 sm:col-span-6">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="kecamatan">Kecamatan</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="kecamatan" type="text"
+                                required disabled wire:model="kecamatan">
+                        </div>
+                        <div class="md:col-span-3 sm:col-span-6">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="kelurahan">Kelurahan</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="kelurahan" type="text"
+                                required disabled wire:model="kelurahan">
+                        </div>
+                        @endif
                     </div>
                     <div class="mt-6">
                         <button

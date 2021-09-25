@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire\Shop;
 
-use Livewire\Component;
 use App\Models\Shop;
+use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
@@ -60,8 +61,14 @@ class Index extends Component
 
     public function createShop()
     {
-        $this->closeShopHandler();
-        $this->createShop = true;
+        $already = Shop::where('user_id', Auth::user()->id)->first();
+        if (!$already) {
+            $this->closeShopHandler();
+            $this->createShop = true;
+        } else {
+            session()->flash('color', 'red');
+            session()->flash('message', 'Kamu sudah memiliki warung');
+        }
     }
 
     public function shopStoredHandler()
