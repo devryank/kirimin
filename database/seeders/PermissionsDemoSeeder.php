@@ -35,6 +35,11 @@ class PermissionsDemoSeeder extends Seeder
         Permission::create(['guard_name' => 'web', 'name' => 'update shops']);
         Permission::create(['guard_name' => 'web', 'name' => 'delete shops']);
 
+        Permission::create(['guard_name' => 'web', 'name' => 'create products']);
+        Permission::create(['guard_name' => 'web', 'name' => 'read products']);
+        Permission::create(['guard_name' => 'web', 'name' => 'update products']);
+        Permission::create(['guard_name' => 'web', 'name' => 'delete products']);
+
         Permission::create(['guard_name' => 'sanctum', 'name' => 'create users']);
         Permission::create(['guard_name' => 'sanctum', 'name' => 'read users']);
         Permission::create(['guard_name' => 'sanctum', 'name' => 'update users']);
@@ -50,6 +55,11 @@ class PermissionsDemoSeeder extends Seeder
         Permission::create(['guard_name' => 'sanctum', 'name' => 'update shops']);
         Permission::create(['guard_name' => 'sanctum', 'name' => 'delete shops']);
 
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'create products']);
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'read products']);
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'update products']);
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'delete products']);
+
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'super-admin']);
@@ -63,26 +73,33 @@ class PermissionsDemoSeeder extends Seeder
         $role1->givePermissionTo('delete roles');
         $role1->givePermissionTo('read shops'); // shops
         $role1->givePermissionTo('delete shops');
+        $role1->givePermissionTo('read products'); // products
+        $role1->givePermissionTo('delete products');
 
         $role2 = Role::create(['name' => 'admin']);
         $role2->givePermissionTo('create users'); // users
         $role2->givePermissionTo('read users');
-        $role2->givePermissionTo('update users'); // update own account
-        $role2->givePermissionTo('delete users'); // delete own account
+        $role2->givePermissionTo('update users');
+        $role2->givePermissionTo('delete users');
 
         $role3 = Role::create(['name' => 'seller']);
         $role3->givePermissionTo('read users'); // users
-        $role3->givePermissionTo('update users'); // update own account
-        $role3->givePermissionTo('delete users'); // delete own account
+        $role3->givePermissionTo('update users');
+        $role3->givePermissionTo('delete users');
         $role3->givePermissionTo('create shops'); //shops
-        $role3->givePermissionTo('read shops'); // read own shop
-        $role3->givePermissionTo('update shops'); // update own shop
-        $role3->givePermissionTo('delete shops'); // delete own shop
+        $role3->givePermissionTo('read shops');
+        $role3->givePermissionTo('update shops');
+        $role3->givePermissionTo('delete shops');
+        $role3->givePermissionTo('create products'); //products
+        $role3->givePermissionTo('read products');
+        $role3->givePermissionTo('update products');
+        $role3->givePermissionTo('delete products');
 
         $role4 = Role::create(['name' => 'user']);
         $role4->givePermissionTo('read users');
-        $role4->givePermissionTo('update users'); // update own account
-        $role4->givePermissionTo('delete users'); // delete own account
+        $role4->givePermissionTo('update users');
+        $role4->givePermissionTo('delete users');
+        $role4->givePermissionTo('read products');
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
