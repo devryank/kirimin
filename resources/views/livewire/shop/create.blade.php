@@ -23,8 +23,8 @@
                             <input id="new" type="radio" required aria-label="Alamat" wire:model="address" value="new">
                             <label for="new">Gunakan alamat baru</label>
                             <br>
-                            <input id="default" type="radio" required aria-label="Alamat" wire:model="address"
-                                value="default"> <label for="default">Gunakan alamat akun</label>
+                            <input id="user" type="radio" required aria-label="Alamat" wire:model="address"
+                                value="user"> <label for="user">Gunakan alamat akun</label>
                         </div>
 
                         @if ($address == 'new')
@@ -138,7 +138,7 @@
                         </div>
                         @endif
 
-                        @if ($address == 'default')
+                        @if ($address == 'user')
                         <div class="md:col-span-4 sm:col-span-12">
                             <label class="block text-sm text-gray-600 dark:text-white" for="jalan">Nama
                                 Jalan</label>

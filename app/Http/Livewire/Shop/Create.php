@@ -14,7 +14,7 @@ class Create extends Component
     public $name;
     public $address;
 
-    public $defaultAddress = [];
+    public $userAddress = [];
 
     public $jalan;
     public $rt;
@@ -51,20 +51,19 @@ class Create extends Component
             }
         }
 
-        if ($this->address == 'default') {
+        if ($this->address == 'user') {
             $this->reset(['province', 'city', 'kecamatan']);
-            $this->defaultAddress = (array) json_decode(Auth::user()->address);
-            $this->jalan = $this->defaultAddress['jalan'];
-            $this->rt = $this->defaultAddress['rt'];
-            $this->rw = $this->defaultAddress['rw'];
-            $this->no = $this->defaultAddress['no'];
-            $this->kelurahan = $this->defaultAddress['kelurahan'];
-            $this->kecamatan = $this->defaultAddress['kecamatan'];
-            $this->city = $this->defaultAddress['kota'];
-            $this->province = $this->defaultAddress['provinsi'];
-            $this->kodepos = $this->defaultAddress['kodepos'];
+            $this->userAddress = (array) json_decode(Auth::user()->address);
+            $this->jalan = $this->userAddress['jalan'];
+            $this->rt = $this->userAddress['rt'];
+            $this->rw = $this->userAddress['rw'];
+            $this->no = $this->userAddress['no'];
+            $this->kelurahan = $this->userAddress['kelurahan'];
+            $this->kecamatan = $this->userAddress['kecamatan'];
+            $this->city = $this->userAddress['kota'];
+            $this->province = $this->userAddress['provinsi'];
+            $this->kodepos = $this->userAddress['kodepos'];
         }
-
 
         return view('livewire.shop.create', [
             'provinces' => $provinces,
@@ -83,7 +82,7 @@ class Create extends Component
                 ->where('kelurahan', $this->kelurahan)
                 ->first();
 
-            if ($this->address == 'default') {
+            if ($this->address == 'user') {
                 $this->validate([
                     'name' => ['required', 'string', 'max:255'],
                 ]);
