@@ -30,6 +30,6 @@ Route::name('dashboard.')
         Route::get('/shops', App\Http\Livewire\Shop\Index::class)->name('shop.index');
     });
 
-Route::get('/city/{id}', [App\Http\Controllers\AddressController::class, 'city']);
-Route::get('/kecamatan/{id}', [App\Http\Controllers\AddressController::class, 'kecamatan']);
-Route::get('/kelurahan/{id}', [App\Http\Controllers\AddressController::class, 'kelurahan']);
+Route::get('/city/{id}', [App\Http\Controllers\AddressController::class, 'city'])->name('city');
+Route::get('/kecamatan/{id}', [App\Http\Controllers\AddressController::class, 'kecamatan'])->name('kecamatan');
+Route::get('/kelurahan/{id}', [App\Http\Controllers\AddressController::class, 'kelurahan'])->name('kelurahan');
