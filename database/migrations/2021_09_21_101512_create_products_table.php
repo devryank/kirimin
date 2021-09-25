@@ -17,10 +17,11 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('shop_id');
             $table->string('name');
-            $table->unsignedInteger('stock')->nullable();
+            $table->enum('stock', ['ready', 'empty']);
+            $table->string('photo')->nullable();
             $table->timestamps();
 
-            $table->foreign('shop_id')->references('id')->on('shops');
+            $table->foreign('shop_id')->references('id')->on('shops')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
