@@ -34,8 +34,12 @@ class Create extends Component
     {
         $provinces = [];
         if ($this->address == 'new') {
-            $provinces = json_decode((new AddressController)->province());
-
+            if (!is_numeric($this->province)) {
+                $this->reset(['province', 'city', 'kecamatan', 'kelurahan', 'listCity', 'listKecamatan', 'listKelurahan']);
+            }
+            if (empty($provinces)) {
+                $provinces = json_decode((new AddressController)->province());
+            }
 
             if (!empty($this->province)) {
                 $this->listCity = json_decode((new AddressController)->city($this->province));
@@ -52,7 +56,7 @@ class Create extends Component
         }
 
         if ($this->address == 'user') {
-            $this->reset(['province', 'city', 'kecamatan']);
+            $this->reset(['province', 'city', 'kecamatan', 'kelurahan', 'listCity', 'listKecamatan', 'listKelurahan']);
             $this->userAddress = (array) json_decode(Auth::user()->address);
             $this->jalan = $this->userAddress['jalan'];
             $this->rt = $this->userAddress['rt'];
@@ -144,7 +148,7 @@ class Create extends Component
                 ]);
             }
 
-            $this->reset(['kecamatan', 'kelurahan', 'province', 'city', 'listCity', 'listKecamatan', 'listKelurahan']);
+            $this->reset(['province', 'city', 'kecamatan', 'kelurahan', 'listCity', 'listKecamatan', 'listKelurahan']);
 
             $this->emit('shopStored');
         } else {
