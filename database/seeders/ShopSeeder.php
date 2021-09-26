@@ -16,8 +16,9 @@ class ShopSeeder extends Seeder
     {
         Shop::create([
             'user_id' => 3,
-            'name' => "Warung Saya",
             'address_id' => 1,
+            'name' => 'Warung Saya',
+            'photo' => 'warung.jpg'
         ]);
     }
 }

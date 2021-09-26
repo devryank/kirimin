@@ -2,7 +2,7 @@
     <div class="flex-flex-wrap">
         <div class="w-full my-6 pr-0 lg:pr-2">
             <p class="text-xl pb-6 flex items-center dark:text-white">
-                Add Role
+                Ubah Toko
             </p>
             <div class="leading-loose">
                 <form wire:submit.prevent="update" method="post"
@@ -10,7 +10,7 @@
                     @csrf
                     @method('PUT')
                     <div class="grid grid-cols-12 gap-4">
-                        <div class="md:col-span-6 sm:col-span-12 dark:text-white">
+                        <div class="md:col-span-4 sm:col-span-12 dark:text-white">
                             <label class="block text-sm text-gray-600 dark:text-white" for="name">Nama Warung</label>
                             <input
                                 class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded @error('name') border-2 border-red-300 @enderror"
@@ -20,7 +20,30 @@
                             @enderror
                         </div>
 
-                        <div class="md:col-span-6 sm:col-span-12 dark:text-white">
+                        <div class="md:col-span-4 sm:col-span-12 dark:text-white">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="photo">Foto Toko</label>
+                            <input
+                                class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded @error('photo') border-2 border-red-300 @enderror"
+                                id="photo" type="file" required aria-label="Nama" wire:model="photo">
+                            @error('photo')
+                            <small class="text-red-500">{{$message}}</small>
+                            @enderror
+                        </div>
+
+                        <div class="md:col-span-4 sm:col-span-12 dark:text-white">
+                            @if ($defaultPhoto AND empty($photo))
+                            <img src="{{ asset('storage/toko/' . $defaultPhoto) }}" class="w-full">
+                            @elseif($photo)
+                            <img src="{{ $photo->temporaryUrl() }}" class="w-full">
+                            @else
+                            <img src="{{ asset('storage/placeholder.png') }}" class="w-full">
+                            <div wire:loading wire:target="photo">
+                                Sedang mengupload ...
+                            </div>
+                            @endif
+                        </div>
+
+                        <div class="md:col-span-12 sm:col-span-12 dark:text-white">
                             <label class="block text-sm text-gray-600 dark:text-white">Alamat</label>
                             <input id="new" type="radio" required aria-label="Alamat" wire:model="address" value="new">
                             <label for="new">Gunakan alamat baru</label>
@@ -192,9 +215,9 @@
                     <div class="mt-6">
                         <button
                             class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 dark:bg-blue-600 rounded"
-                            type="submit">Submit</button>
-                        <button wire:click.prevent="$emit('closeRole')"
-                            class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded">Cancel</button>
+                            type="submit">Ubah</button>
+                        <button wire:click.prevent="$emit('closeShop')"
+                            class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded">Batal</button>
                     </div>
                 </form>
             </div>

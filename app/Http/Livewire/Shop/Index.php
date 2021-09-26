@@ -75,7 +75,7 @@ class Index extends Component
     {
         $this->closeShopHandler();
         session()->flash('color', 'green');
-        session()->flash('message', 'Shop successfully created');
+        session()->flash('message', 'Warung berhasil dibuat');
     }
 
     public function editShop($id)
@@ -89,14 +89,14 @@ class Index extends Component
     {
         $this->closeShopHandler();
         session()->flash('color', 'green');
-        session()->flash('message', 'Shop successfully updated');
+        session()->flash('message', 'Warung berhasil diubah');
     }
 
     public function userProhibitedHandler($action)
     {
         $this->closeShopHandler();
         session()->flash('color', 'red');
-        session()->flash('message', 'You are not allowed to ' . $action . ' an shop');
+        session()->flash('message', 'Kamu tidak diizinkan untuk ' . $action . ' toko');
     }
 
     public function deleteShop($id)
@@ -110,6 +110,6 @@ class Index extends Component
     {
         $this->closeShopHandler();
         session()->flash('color', 'green');
-        session()->flash('message', 'Successfully delete shop ' . $name);
+        session()->flash('message', 'Berhasil menghapus ' . $name);
     }
 }

@@ -5,14 +5,19 @@ namespace App\Http\Livewire\Shop;
 use App\Models\Shop;
 use App\Models\Address;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AddressController;
 
 class Update extends Component
 {
+    use WithFileUploads;
+
     public $shopId;
     public $name;
+    public $defaultPhoto;
+    public $photo;
     public $address; // new or user
 
     public $userAddress = [];
@@ -41,6 +46,7 @@ class Update extends Component
 
         $this->shopId = $shop->id;
         $this->name = $shop->name;
+        $this->defaultPhoto = $shop->photo;
 
         $this->jalan = $shop->address->jalan;
         $this->rt = $shop->address->rt;
@@ -113,11 +119,13 @@ class Update extends Component
             if ($this->address == 'user') {
                 $this->validate([
                     'name' => ['required', 'string', 'max:255'],
+                    'photo' => ['required', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
                 ]);
             }
             if ($this->address == 'new') {
                 $this->validate([
                     'name' => ['required', 'string', 'max:255'],
+                    'photo' => ['required', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
                     'address' => ['required'],
                     'province' => ['required'],
                     'city' => ['required'],
@@ -143,8 +151,11 @@ class Update extends Component
                 $this->kelurahan = $kelurahan->nama;
             }
 
+            $imageName = date('mdYHis') . date('mdYHis') . $this->photo->getClientOriginalName();
+
             if (empty($checkAddress)) {
                 DB::transaction(function () {
+                    $imageName = date('mdYHis') . date('mdYHis') . $this->photo->getClientOriginalName();
                     $address = Address::create([
                         'jalan' => $this->jalan,
                         'rt' => $this->rt,
@@ -160,6 +171,7 @@ class Update extends Component
                     $shop->update([
                         'user_id' => Auth::user()->id,
                         'name' => $this->name,
+                        'photo' => $imageName,
                         'address_id' => $address->id, // last insert id
                     ]);
                 });
@@ -169,8 +181,17 @@ class Update extends Component
                 $shop->update([
                     'user_id' => Auth::user()->id,
                     'name' => $this->name,
+                    'photo' => $imageName,
                     'address_id' => $checkAddress->id,
                 ]);
+            }
+
+            if (empty($this->photo)) { // not change image
+                $imageName = $this->defaultPhoto;
+            } else { // change image 
+                $imageName = date('mdYHis') . date('mdYHis') . $this->photo->getClientOriginalName();
+                $this->photo->storeAs('/public/toko', $imageName);
+                @unlink('storage/toko/' . $this->defaultPhoto);
             }
 
             $this->reset(['province', 'city', 'kecamatan', 'kelurahan', 'listCity', 'listKecamatan', 'listKelurahan']);

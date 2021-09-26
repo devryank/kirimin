@@ -34,6 +34,7 @@ class Delete extends Component
         if (request()->user()->hasRole('super-admin') or request()->user()->hasPermissionTo('delete shops')) {
             $shop = Shop::find($this->shopId);
             $name = $shop['name'];
+            @unlink('storage/toko/' . $shop['photo']);
             $shop->delete();
             $this->emit('shopDestroyed', $name);
         } else {

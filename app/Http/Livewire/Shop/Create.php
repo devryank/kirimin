@@ -5,13 +5,17 @@ namespace App\Http\Livewire\Shop;
 use App\Models\Shop;
 use App\Models\Address;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AddressController;
 
 class Create extends Component
 {
+    use WithFileUploads;
+
     public $name;
+    public $photo;
     public $address;
 
     public $userAddress = [];
@@ -89,11 +93,13 @@ class Create extends Component
             if ($this->address == 'user') {
                 $this->validate([
                     'name' => ['required', 'string', 'max:255'],
+                    'photo' => ['required', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
                 ]);
             }
             if ($this->address == 'new') {
                 $this->validate([
                     'name' => ['required', 'string', 'max:255'],
+                    'photo' => ['required', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
                     'address' => ['required'],
                     'province' => ['required'],
                     'city' => ['required'],
@@ -119,8 +125,12 @@ class Create extends Component
                 $this->kelurahan = $kelurahan->nama;
             }
 
-            if (empty($checkAddress)) {
+            $imageName = date('mdYHis') . date('mdYHis') . $this->photo->getClientOriginalName();
+
+            if (empty($checkAddress)) { // tidak ditemukan alamat yang sama
+
                 DB::transaction(function () {
+                    $imageName = date('mdYHis') . date('mdYHis') . $this->photo->getClientOriginalName();
                     $address = Address::create([
                         'jalan' => $this->jalan,
                         'rt' => $this->rt,
@@ -135,6 +145,7 @@ class Create extends Component
                     Shop::create([
                         'user_id' => Auth::user()->id,
                         'name' => $this->name,
+                        'photo' => $imageName,
                         'address_id' => $address->id, // last insert id
                     ]);
                 });
@@ -144,9 +155,12 @@ class Create extends Component
                 Shop::create([
                     'user_id' => Auth::user()->id,
                     'name' => $this->name,
+                    'photo' => $imageName,
                     'address_id' => $checkAddress->id,
                 ]);
             }
+
+            $this->photo->storeAs('/public/toko', $imageName);
 
             $this->reset(['province', 'city', 'kecamatan', 'kelurahan', 'listCity', 'listKecamatan', 'listKelurahan']);
 

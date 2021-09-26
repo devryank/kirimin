@@ -43,7 +43,7 @@
                     @if(Auth::user()->hasPermissionTo('create shops'))
                     <div>
                         <button wire:click="createShop"
-                            class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 dark:bg-blue-600 rounded">Add</button>
+                            class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 dark:bg-blue-600 rounded">Tambah</button>
                     </div>
                     @endif
                     <div class="col-start-3 col-span-4 text-right">
@@ -88,7 +88,7 @@
                     style="width:100%; padding-top: 1em; padding-bottom: 1em;">
                     <thead class="bg-gray-800 text-white dark:bg-gray-900">
                         <tr>
-                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Nama Warung</th>
+                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Nama Toko</th>
                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Pemilik</th>
                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Alamat</th>
                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Aksi</th>
@@ -119,7 +119,7 @@
                                     $shop->id)
                                     OR Auth::user()->hasPermissionTo('update shops'))
                                     <button wire:click="editShop({{$shop->id}})"
-                                        class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
+                                        class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Ubah</button>
 
                                     @endif
 
@@ -129,7 +129,7 @@
                                     <button wire:click="deleteShop({{$shop->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded"
                                         onclick="scrollUp()">
-                                        Delete
+                                        Hapus
                                     </button>
                                     @endif
                                 </div>

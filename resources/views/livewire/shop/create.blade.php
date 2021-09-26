@@ -8,8 +8,8 @@
                 <form wire:submit.prevent="store" method="post" class="p-5 bg-white dark:bg-gray-800 rounded shadow-xl">
                     @csrf
                     <div class="grid grid-cols-12 gap-4">
-                        <div class="md:col-span-6 sm:col-span-12 dark:text-white">
-                            <label class="block text-sm text-gray-600 dark:text-white" for="name">Nama Warung</label>
+                        <div class="md:col-span-4 sm:col-span-12 dark:text-white">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="name">Nama Toko</label>
                             <input
                                 class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded @error('name') border-2 border-red-300 @enderror"
                                 id="name" type="text" required aria-label="Nama" wire:model="name">
@@ -18,7 +18,28 @@
                             @enderror
                         </div>
 
-                        <div class="md:col-span-6 sm:col-span-12 dark:text-white">
+                        <div class="md:col-span-4 sm:col-span-12 dark:text-white">
+                            <label class="block text-sm text-gray-600 dark:text-white" for="photo">Foto Toko</label>
+                            <input
+                                class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded @error('photo') border-2 border-red-300 @enderror"
+                                id="photo" type="file" required aria-label="Nama" wire:model="photo">
+                            @error('photo')
+                            <small class="text-red-500">{{$message}}</small>
+                            @enderror
+                        </div>
+
+                        <div class="md:col-span-4 sm:col-span-12 dark:text-white">
+                            @if ($photo)
+                            <img src="{{ $photo->temporaryUrl() }}" class="w-full">
+                            @else
+                            <img src="{{ asset('storage/placeholder.png') }}" class="w-full">
+                            <div wire:loading wire:target="photo">
+                                Sedang mengupload ...
+                            </div>
+                            @endif
+                        </div>
+
+                        <div class="md:col-span-12 sm:col-span-12 dark:text-white">
                             <label class="block text-sm text-gray-600 dark:text-white">Alamat</label>
                             <input id="new" type="radio" required aria-label="Alamat" wire:model="address" value="new">
                             <label for="new">Gunakan alamat baru</label>
