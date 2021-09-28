@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('shop_id');
+            $table->string('shop_id', 32);
             $table->string('name');
             $table->enum('stock', ['ready', 'empty']);
             $table->string('photo')->nullable();
