@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -27,6 +26,7 @@
             font-family: 'Nunito', sans-serif;
         }
     </style>
+    @livewireStyles
 </head>
 
 <body class="antialiased">
@@ -58,6 +58,9 @@
     @yield('content')
 
     @stack('js')
+    <!-- AlpineJS -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    @livewireScripts
 </body>
 
 </html>

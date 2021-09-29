@@ -35,8 +35,8 @@ Route::get('/landing', [App\Http\Controllers\GeneralController::class, 'noauth']
 Route::middleware(['auth:sanctum', 'verified'])
     ->name('general.')
     ->group(function () {
-        Route::get('/', [App\Http\Controllers\GeneralController::class, 'index'])->name('index');
-        Route::get('/{id}', [App\Http\Controllers\GeneralController::class, 'show'])->name('show');
+        Route::get('/', App\Http\Livewire\General\Index::class)->name('index');
+        Route::get('/toko/{id}', App\Http\Livewire\General\Slug::class)->name('show');
     });
 
 Route::get('/city/{id}', [App\Http\Controllers\AddressController::class, 'city'])->name('city');

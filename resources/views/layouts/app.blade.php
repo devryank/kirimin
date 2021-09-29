@@ -72,11 +72,19 @@
             <a href="{{route('dashboard.shop.index')}}"
                 class="flex items-center {{Request::segment(2) == 'shops' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
                 <i class="fas fa-store mr-3"></i>
-                Warung
+                Toko
             </a>
             @endif
 
-            @if (Auth::user()->hasPermissionTo('read users'))
+            @if (Auth::user()->hasPermissionTo('read products'))
+            <a href="{{route('dashboard.product.index')}}"
+                class="flex items-center {{Request::segment(2) == 'products' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
+                <i class="fas fa-box mr-3"></i>
+                Produk
+            </a>
+            @endif
+
+            @if (Auth::user()->hasRole('super-admin'))
             <a href="{{route('dashboard.user.index')}}"
                 class="flex items-center {{Request::segment(2) == 'users' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
                 <i class="fas fa-users mr-3"></i>
