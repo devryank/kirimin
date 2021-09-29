@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             PermissionsDemoSeeder::class,
             AddressSeeder::class,
             ShopSeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }
