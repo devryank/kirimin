@@ -36,7 +36,7 @@ Route::middleware(['auth:sanctum', 'verified'])
     ->name('general.')
     ->group(function () {
         Route::get('/', App\Http\Livewire\General\Index::class)->name('index');
-        Route::get('/toko/{id}', App\Http\Livewire\General\Slug::class)->name('show');
+        Route::get('/toko/{id}', App\Http\Livewire\General\Show::class)->name('show');
     });
 
 Route::get('/city/{id}', [App\Http\Controllers\AddressController::class, 'city'])->name('city');
