@@ -10,18 +10,18 @@
                 Produk
             </h2>
             <div class="product border border-black rounded-lg">
-                @foreach ($products as $product)
+                @foreach ($products as $key => $product)
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-2">
-                        <img src="{{ 'storage/' . $product->photo }}" class="w-full">
+                        <img src="{{ asset('storage/' . $product->photo) }}" class="w-full">
                     </div>
-                    <div class="col-span-8">
+                    <div class="col-span-6">
                         {{$product->name}}
                     </div>
-                    <div class="col-span-2">
-                        @if ($addQty)
+                    <div class="col-span-4">
+                        @if ($addQty AND $key == $tagId)
                         <div class="flex flex-row mx-auto h-10 w-2/4 rounded-lg relative">
-                            <button
+                            <button wire:click="decreaseQty"
                                 class="font-semibold rounded-full border bg-gray-300 hover:bg-gray-400 text-gray-700 border-gray-400 h-full w-16 flex focus:outline-none cursor-pointer">
                                 <span class="m-auto">-</span>
                             </button>
@@ -30,18 +30,20 @@
                                 readonly name="custom-input-quantity" />
                             <div
                                 class="bg-white w-24 text-xs md:text-base flex items-center justify-center cursor-default">
-                                <span>0</span>
+                                <span>{{ $qty }}</span>
                             </div>
 
-                            <button
+                            <button wire:click="increaseQty"
                                 class="font-semibold rounded-full border bg-gray-300 hover:bg-gray-400 text-gray-700 border-gray-400 h-full w-16 flex focus:outline-none cursor-pointer">
                                 <span class="m-auto">+</span>
                             </button>
+
+                            <button wire:click="addToCart({{$product->id}})" class="px-3 py-2 bg-green-500 text-white"
+                                {{ $qty < 1 ? 'disabled' : '' }}>Order</button>
                         </div>
                         @else
-                        <button wire:click.prevent="createOrder()"
-                            class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Ubah</button>
-                        {{$qty}}
+                        <button wire:click="createOrder({{$key}})"
+                            class="px-3 py-2 bg-green-500 text-white">Order</button>
                         @endif
                     </div>
                     <div class="col-span-12">
