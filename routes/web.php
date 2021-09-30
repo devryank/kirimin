@@ -37,6 +37,7 @@ Route::middleware(['auth:sanctum', 'verified'])
     ->group(function () {
         Route::get('/', App\Http\Livewire\General\Index::class)->name('index');
         Route::get('/toko/{id}', App\Http\Livewire\General\Show::class)->name('show');
+        Route::get('/cart', App\Http\Livewire\General\Cart::class)->name('cart');
     });
 
 Route::get('/city/{id}', [App\Http\Controllers\AddressController::class, 'city'])->name('city');
