@@ -20,4 +20,9 @@ class Product extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
 }

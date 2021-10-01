@@ -17,13 +17,17 @@ class ProductSeeder extends Seeder
     {
         Product::create([
             'shop_id' => Shop::take(1)->first()->id,
+            'unit_id' => 1,
             'name' => 'Cabai',
+            'price' => 96000,
             'stock' => 'ready',
             'photo' => 'cabai.png'
         ]);
         Product::create([
             'shop_id' => Shop::take(1)->first()->id,
+            'unit_id' => 1,
             'name' => 'Wortel',
+            'price' => 15000,
             'stock' => 'ready',
             'photo' => 'wortel.png'
         ]);
