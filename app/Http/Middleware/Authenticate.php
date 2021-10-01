@@ -17,10 +17,5 @@ class Authenticate extends Middleware
         if (!$request->expectsJson()) {
             return route('noauth');
         }
-        // if (request()->user()->hasRole('seller')) {
-        // }
-        // if (request()->user()->hasRole('user')) {
-        //     return redirect()->route('general.index');
-        // }
     }
 }

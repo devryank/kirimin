@@ -13,8 +13,10 @@ class Show extends Component
 {
     public $shopId;
     public $tagId = false;
-    public $addQty = false;
-    public $qty = 0;
+    public $addUnitQty = false;
+    public $addSingleQty = false;
+    public $unitQty = 0;
+    public $singleQty = 0;
 
     public function mount()
     {
@@ -31,44 +33,73 @@ class Show extends Component
         ])->extends('layouts.general')->section('content');
     }
 
-    public function createOrder($tagId)
+    public function createOrderUnit($tagId)
     {
         $this->tagId = $tagId;
-        $this->addQty = true;
+        $this->addSingleQty = false;
+        $this->addUnitQty = true;
+    }
+
+    public function createOrderSingle($tagId)
+    {
+        $this->tagId = $tagId;
+        $this->addUnitQty = false;
+        $this->addSingleQty = true;
     }
 
     public function increaseQty()
     {
-        $this->qty += 1;
+        $this->unitQty += 1;
     }
 
     public function decreaseQty()
     {
-        if ($this->qty !== 0) {
-            $this->qty -= 1;
+        if ($this->unitQty !== 0) {
+            $this->unitQty -= 1;
         }
     }
 
     public function addToCart($productId)
     {
-        if ($this->qty > 0) {
+        if ($this->unitQty > 0) {
             $trxDuplicate = Transaction::where('user_id', Auth::user()->id)
                 ->where('product_id', $productId)
                 ->where('status', 'waiting')
                 ->first();
-            if (!empty($trxDuplicate)) {
+            if (!empty($trxDuplicate)) { // have a duplicate
                 $trxDuplicate->update([
-                    'qty' => $this->qty,
+                    'qty' => $this->unitQty,
+                    'custom_price' => 0,
                 ]);
             } else {
                 Transaction::create([
                     'id' => date('Ymdhis') . Str::random(4),
                     'product_id' => $productId,
                     'user_id' => Auth::user()->id,
-                    'qty' => $this->qty,
+                    'qty' => $this->unitQty,
                 ]);
             }
-            $this->reset(['tagId', 'addQty', 'qty']);
         }
+
+        if ($this->singleQty > 0) {
+            $trxDuplicate = Transaction::where('user_id', Auth::user()->id)
+                ->where('product_id', $productId)
+                ->where('status', 'waiting')
+                ->first();
+            if (!empty($trxDuplicate)) { // have a duplicate
+                $trxDuplicate->update([
+                    'qty' => 0,
+                    'custom_price' => $this->singleQty
+                ]);
+            } else {
+                Transaction::create([
+                    'id' => date('Ymdhis') . Str::random(4),
+                    'product_id' => $productId,
+                    'user_id' => Auth::user()->id,
+                    'custom_price' => $this->singleQty
+                ]);
+            }
+        }
+        $this->reset(['tagId', 'addUnitQty', 'addSingleQty', 'unitQty', 'singleQty']);
     }
 }

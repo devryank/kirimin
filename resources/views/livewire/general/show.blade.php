@@ -19,8 +19,8 @@
                         {{$product->name}}
                     </div>
                     <div class="col-span-4">
-                        @if ($addQty AND $key == $tagId)
-                        <div class="flex flex-row mx-auto h-10 w-2/4 rounded-lg relative">
+                        @if ($addUnitQty AND $key == $tagId)
+                        <div class="flex flex-row mx-auto h-10 w-40 rounded-lg relative">
                             <button wire:click="decreaseQty"
                                 class="font-semibold rounded-full border bg-gray-300 hover:bg-gray-400 text-gray-700 border-gray-400 h-full w-16 flex focus:outline-none cursor-pointer">
                                 <span class="m-auto">-</span>
@@ -30,7 +30,7 @@
                                 readonly name="custom-input-quantity" />
                             <div
                                 class="bg-white w-24 text-xs md:text-base flex items-center justify-center cursor-default">
-                                <span>{{ $qty }}</span>
+                                <span>{{ $unitQty }} {{ $product->unit->name }}</span>
                             </div>
 
                             <button wire:click="increaseQty"
@@ -39,11 +39,22 @@
                             </button>
 
                             <button wire:click="addToCart({{$product->id}})" class="px-3 py-2 bg-green-500 text-white"
-                                {{ $qty < 1 ? 'disabled' : '' }}>Order</button>
+                                {{ $unitQty < 1 ? 'disabled' : '' }}>Pesan</button>
+                        </div>
+
+                        @elseif ($addSingleQty AND $key == $tagId)
+                        <div class="flex flex-row mx-auto h-10 w-52 rounded-lg relative">
+                            <input type="number" class="w-full mr-2" wire:model="singleQty" placeholder="Contoh: 5000">
+                            <button wire:click="addToCart({{$product->id}})" class="px-3 py-2 bg-green-500 text-white"
+                                {{ $singleQty < 1 ? 'disabled' : '' }}>Pesan</button>
                         </div>
                         @else
-                        <button wire:click="createOrder({{$key}})"
-                            class="px-3 py-2 bg-green-500 text-white">Order</button>
+                        <button wire:click="createOrderUnit({{$key}})" class="px-3 py-2 bg-green-500 text-white">Beli
+                            Satuan</button>
+                        @if ($product->custom_price)
+                        <button wire:click="createOrderSingle({{$key}})" class="px-3 py-2 bg-green-500 text-white">Beli
+                            Eceran</button>
+                        @endif
                         @endif
                     </div>
                     <div class="col-span-12">
