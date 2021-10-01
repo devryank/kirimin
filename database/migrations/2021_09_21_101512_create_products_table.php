@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->unsignedInteger('price');
             $table->enum('stock', ['ready', 'empty']);
+            $table->enum('custom_price', ['0', '1']);
             $table->string('photo')->nullable();
             $table->timestamps();
 

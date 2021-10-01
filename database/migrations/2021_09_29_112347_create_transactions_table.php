@@ -17,7 +17,8 @@ class CreateTransactionsTable extends Migration
             $table->string('id')->primary();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
-            $table->integer('qty');
+            $table->integer('qty')->default(0);
+            $table->integer('custom_price')->default(0);
             $table->enum('status', ['waiting', 'failed', 'success']);
             $table->timestamps();
 

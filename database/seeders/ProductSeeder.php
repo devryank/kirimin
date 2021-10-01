@@ -21,6 +21,7 @@ class ProductSeeder extends Seeder
             'name' => 'Cabai',
             'price' => 96000,
             'stock' => 'ready',
+            'custom_price' => '1',
             'photo' => 'cabai.png'
         ]);
         Product::create([
@@ -29,7 +30,17 @@ class ProductSeeder extends Seeder
             'name' => 'Wortel',
             'price' => 15000,
             'stock' => 'ready',
+            'custom_price' => '1',
             'photo' => 'wortel.png'
+        ]);
+        Product::create([
+            'shop_id' => Shop::take(1)->first()->id,
+            'unit_id' => 2,
+            'name' => 'Beras',
+            'price' => 10000,
+            'stock' => 'ready',
+            'custom_price' => '0',
+            'photo' => 'beras.png'
         ]);
     }
 }
