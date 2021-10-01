@@ -31,7 +31,7 @@ Route::name('dashboard.')
         Route::get('/products', App\Http\Livewire\Product\Index::class)->name('product.index');
     });
 
-Route::get('/landing', [App\Http\Controllers\GeneralController::class, 'noauth'])->name('noauth');
+Route::get('/landing', App\Http\Livewire\General\Noauth::class)->name('noauth');
 Route::middleware(['auth:sanctum', 'verified'])
     ->name('general.')
     ->group(function () {
