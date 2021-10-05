@@ -18,9 +18,57 @@ class Cart extends Component
     public function render()
     {
         $items = Transaction::where('user_id', Auth::user()->id)->get();
+        $cart = [];
         foreach ($items as $key => $item) {
-            // $item->product->price;
+            if(!empty($cart)) {
+                // echo 'ok';
+            for ($i = 0; $i < $key - 1; $i++) {
+                //   echo array_keys($cart[$i])[0];
+                //   echo $item->product->shop->item;
+                    //  if(array_keys($cart[$key])[$i] == $item->product->shop->name) {
+                        //  echo 'ok';
+                        //  $cart[$i] = array($item->product->shop->name => $item->qty == 0 ? array_values($cart[$i]) + $item->custom_price : array_values($cart[$i]) + $item->product->price * $item->qty);
+                    //  } else {
+                        //  $cart = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
+                    //  }
+                 
+                 }
+            } else {
+                // $cart[] = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
+// dd($cart);
+            }
+            
         }
+        
+        $cart = [];
+        
+        foreach ($items as $key => $item) {
+            if(!empty($cart)) {
+                for ($i = 0; $i < $key; $i++) {
+                    // echo $item->product->shop->name;
+                     if(isset($cart[$i][$item->product->shop->name])) {
+                         if(array_keys($cart[$i])[0] == $item->product->shop->name) {
+                            $cart[$i][$item->product->shop->name] += $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty;
+                            // echo 'sama';
+                             break;
+                         }
+                    }else {
+                        echo 'beda';
+                        $cart[] = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
+                    
+                       break;
+                    }   
+
+                     
+                }
+                
+            } else {
+                $cart[] = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
+       
+            }
+        }
+        
+        dd($cart);
         return view('livewire.general.cart', [
             'items' => $items,
         ])->extends('layouts.general')->section('content');
