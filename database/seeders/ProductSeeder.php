@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::create([
-            'shop_id' => Shop::take(1)->first()->id,
+            'shop_id' => Shop::where('user_id', 3)->first()->id,
             'unit_id' => 1,
             'name' => 'Cabai',
             'price' => 96000,
@@ -25,7 +25,7 @@ class ProductSeeder extends Seeder
             'photo' => 'cabai.png'
         ]);
         Product::create([
-            'shop_id' => Shop::take(1)->first()->id,
+            'shop_id' => Shop::where('user_id', 3)->first()->id,
             'unit_id' => 1,
             'name' => 'Wortel',
             'price' => 15000,
@@ -34,7 +34,7 @@ class ProductSeeder extends Seeder
             'photo' => 'wortel.png'
         ]);
         Product::create([
-            'shop_id' => Shop::take(1)->first()->id,
+            'shop_id' => Shop::where('user_id', 5)->first()->id,
             'unit_id' => 2,
             'name' => 'Beras',
             'price' => 10000,

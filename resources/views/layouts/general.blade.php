@@ -38,6 +38,7 @@
         <div class="col-start-6 col-span-3 px-6 py-4">
             @auth
             <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Profile</a>
+<a href="{{ url('/cart') }}" class="text-sm text-gray-700 underline">Cart</a>
             <a href="{{ route('logout') }}" class="text-sm text-gray-700 underline" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                 Sign Out

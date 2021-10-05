@@ -134,5 +134,14 @@ class PermissionsDemoSeeder extends Seeder
             'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
         ]);
         $user->assignRole($role4);
+        
+         $user = \App\Models\User::factory()->create([
+            'name' => 'Seller 2',
+            'email' => 'seller2@app.test',
+            'phone' => '085814316629',
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '02', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
+        ]);
+        $user->assignRole($role3);
+
     }
 }
