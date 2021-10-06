@@ -14,6 +14,8 @@ class Cart extends Component
     public $addSingleQty = false;
     public $unitQty = 0;
     public $singleQty = 0;
+    
+    public $selectShop;
 
     public function render()
     {
@@ -40,22 +42,21 @@ class Cart extends Component
             
         }
         
-        $cart = [];
+        $carts = [];
         
         foreach ($items as $key => $item) {
-            if(!empty($cart)) {
+            if(!empty($carts)) {
                 for ($i = 0; $i < $key; $i++) {
+                    // dd(array_keys($carts[$i]));
                     // echo $item->product->shop->name;
-                     if(isset($cart[$i][$item->product->shop->name])) {
-                         if(array_keys($cart[$i])[0] == $item->product->shop->name) {
-                            $cart[$i][$item->product->shop->name] += $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty;
+                     if(isset($carts[$i][$item->product->shop->name])) {
+                         if(array_keys($carts[$i])[0] == $item->product->shop->name) {
+                            $carts[$i][$item->product->shop->name] += $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty;
                             // echo 'sama';
                              break;
                          }
                     }else {
-                        echo 'beda';
-                        $cart[] = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
-                    
+                        $carts[] = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
                        break;
                     }   
 
@@ -63,14 +64,17 @@ class Cart extends Component
                 }
                 
             } else {
-                $cart[] = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
+                $carts[] = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
        
             }
         }
-        
-        dd($cart);
+        dd($carts);
+        foreach (array_keys($carts) as $key => $cart) {
+            var_dump($key);
+        }
         return view('livewire.general.cart', [
             'items' => $items,
+            'carts' => $carts,
         ])->extends('layouts.general')->section('content');
     }
 

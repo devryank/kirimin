@@ -48,7 +48,9 @@
             @endforeach
         </div>
         <div class="col-span-4">
-
+            @foreach($carts as $key => $cart)
+                <input type="radio" name="shop" wire:model="selectShop"> {{ $key }}
+            @endforeach
         </div>
     </div>
 </div>
