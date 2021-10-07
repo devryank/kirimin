@@ -15,13 +15,15 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->string('id')->primary();
+            $table->string('shop_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
             $table->integer('qty')->default(0);
             $table->integer('custom_price')->default(0);
-            $table->enum('status', ['waiting', 'failed', 'success']);
+            $table->enum('status', ['cart', 'process', 'waiting', 'failed', 'success']);
             $table->timestamps();
 
+            $table->foreign('shop_id')->references('id')->on('shops')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
