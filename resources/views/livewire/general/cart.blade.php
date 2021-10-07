@@ -48,9 +48,26 @@
             @endforeach
         </div>
         <div class="col-span-4">
-            @foreach($carts as $key => $cart)
-                <input type="radio" name="shop" wire:model="selectShop"> {{ $key }}
-            @endforeach
+            <div class="grid grid-cols-12">
+                <div class="col-span-6">
+                    @foreach($carts as $key => $cart)
+                    <label>
+                        <input type="radio" name="shop" id="shop" wire:model="selectShop"
+                            value="{{ array_keys($cart)[0] }}">{{ array_keys($cart)[0] }}
+                    </label>
+                    <br>
+                    @endforeach
+                </div>
+                <div class="col-span-6">
+                    @foreach($carts as $key => $cart)
+                    {{ "Rp " . number_format(array_values($cart)[0],0,',','.') }}
+                    <br>
+                    @endforeach
+                </div>
+                <div class="col-span-12">
+                    <button class="w-full px-3 py-2 bg-green-500 text-white" wire:click="buyNow">Beli Sekarang</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\General;
 
-use App\Models\Transaction;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use App\Models\Transaction;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class Cart extends Component
 {
@@ -14,63 +15,32 @@ class Cart extends Component
     public $addSingleQty = false;
     public $unitQty = 0;
     public $singleQty = 0;
-    
+
     public $selectShop;
 
     public function render()
     {
-        $items = Transaction::where('user_id', Auth::user()->id)->get();
-        $cart = [];
-        foreach ($items as $key => $item) {
-            if(!empty($cart)) {
-                // echo 'ok';
-            for ($i = 0; $i < $key - 1; $i++) {
-                //   echo array_keys($cart[$i])[0];
-                //   echo $item->product->shop->item;
-                    //  if(array_keys($cart[$key])[$i] == $item->product->shop->name) {
-                        //  echo 'ok';
-                        //  $cart[$i] = array($item->product->shop->name => $item->qty == 0 ? array_values($cart[$i]) + $item->custom_price : array_values($cart[$i]) + $item->product->price * $item->qty);
-                    //  } else {
-                        //  $cart = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
-                    //  }
-                 
-                 }
-            } else {
-                // $cart[] = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
-// dd($cart);
-            }
-            
-        }
-        
+        $items = Transaction::where('user_id', Auth::user()->id)->where('status', 'cart')->get();
         $carts = [];
-        
         foreach ($items as $key => $item) {
-            if(!empty($carts)) {
+            if (!empty($carts)) {
+                $found = false;
                 for ($i = 0; $i < $key; $i++) {
-                    // dd(array_keys($carts[$i]));
-                    // echo $item->product->shop->name;
-                     if(isset($carts[$i][$item->product->shop->name])) {
-                         if(array_keys($carts[$i])[0] == $item->product->shop->name) {
+                    if (isset($carts[$i][$item->product->shop->name])) {
+                        if (array_keys($carts[$i])[0] == $item->product->shop->name) {
                             $carts[$i][$item->product->shop->name] += $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty;
-                            // echo 'sama';
-                             break;
-                         }
-                    }else {
+                            $found = true;
+                            break;
+                        }
+                    }
+                    // check if its last loop and cannot find same shop 
+                    if ($i == $key - 1 and !$found) {
                         $carts[] = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
-                       break;
-                    }   
-
-                     
+                    }
                 }
-                
             } else {
                 $carts[] = array($item->product->shop->name => $item->qty == 0 ? $item->custom_price : $item->product->price * $item->qty);
-       
             }
-        }
-        dd($carts);
-        foreach (array_keys($carts) as $key => $cart) {
-            var_dump($key);
         }
         return view('livewire.general.cart', [
             'items' => $items,
@@ -146,5 +116,28 @@ class Cart extends Component
             }
         }
         $this->reset(['tagId', 'addUnitQty', 'addSingleQty', 'unitQty', 'singleQty']);
+    }
+
+    public function buyNow()
+    {
+        $transactions = Transaction::where('status', 'cart')->get();
+        $checkTrx = Transaction::where('status', 'process')->first();
+        $redirect = false;
+
+        foreach ($transactions as $trx) {
+            // check selected shop's name is same with transactions shop's name
+            if ($trx->product->shop->name == $this->selectShop) {
+                // check if there is any transactions with status process
+                if (empty($checkTrx)) {
+                    Transaction::where('shop_id', $trx->shop_id)->where('status', 'cart')->update(['status' => 'process']);
+                    $redirect = true;
+                } else {
+                    dd('ada transaksi lain');
+                }
+            }
+        }
+        if ($redirect) {
+            return redirect()->route('general.process');
+        }
     }
 }

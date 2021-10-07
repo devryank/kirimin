@@ -64,7 +64,7 @@ class Show extends Component
         if ($this->unitQty > 0) {
             $trxDuplicate = Transaction::where('user_id', Auth::user()->id)
                 ->where('product_id', $productId)
-                ->where('status', 'waiting')
+                ->where('status', 'cart')
                 ->first();
             if (!empty($trxDuplicate)) { // have a duplicate
                 $trxDuplicate->update([
@@ -74,6 +74,7 @@ class Show extends Component
             } else {
                 Transaction::create([
                     'id' => date('Ymdhis') . Str::random(4),
+                    'shop_id' => $this->shopId,
                     'product_id' => $productId,
                     'user_id' => Auth::user()->id,
                     'qty' => $this->unitQty,
@@ -84,7 +85,7 @@ class Show extends Component
         if ($this->singleQty > 0) {
             $trxDuplicate = Transaction::where('user_id', Auth::user()->id)
                 ->where('product_id', $productId)
-                ->where('status', 'waiting')
+                ->where('status', 'cart')
                 ->first();
             if (!empty($trxDuplicate)) { // have a duplicate
                 $trxDuplicate->update([
@@ -94,6 +95,7 @@ class Show extends Component
             } else {
                 Transaction::create([
                     'id' => date('Ymdhis') . Str::random(4),
+                    'shop_id' => $this->shopId,
                     'product_id' => $productId,
                     'user_id' => Auth::user()->id,
                     'custom_price' => $this->singleQty
