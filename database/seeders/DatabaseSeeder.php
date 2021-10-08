@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             MethodSeeder::class,
         ]);
+        // TransactionSeeder::class,
     }
 }

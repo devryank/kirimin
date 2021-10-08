@@ -118,9 +118,9 @@ class Cart extends Component
         $this->reset(['tagId', 'addUnitQty', 'addSingleQty', 'unitQty', 'singleQty']);
     }
 
-    public function buyNow()
+    public function process()
     {
-        $transactions = Transaction::where('status', 'cart')->get();
+        $transactions = Transaction::where('user_id', Auth::user()->id)->where('status', 'cart')->get();
         $checkTrx = Transaction::where('status', 'process')->first();
         $redirect = false;
 

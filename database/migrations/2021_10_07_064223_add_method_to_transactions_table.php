@@ -14,7 +14,7 @@ class AddMethodToTransactionsTable extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->unsignedBigInteger('method_id')->nullable();
+            $table->unsignedBigInteger('method_id')->nullable()->after('product_id');
 
             $table->foreign('method_id')->references('id')->on('methods')->onUpdate('cascade')->onDelete('cascade');
         });
