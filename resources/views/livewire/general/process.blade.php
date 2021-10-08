@@ -1,6 +1,7 @@
 <div>
     <div class="grid grid-cols-12 gap-4">
         <div class="col-span-8">
+            <button class="px-3 py-2 bg-red-500 text-white" wire:click="cancel">Batal</button>
             @foreach ($items as $key => $item)
             <h3 class="text-xl">{{$item->product->shop->name}}</h3>
             <p>ID: {{$item->id}}</p>

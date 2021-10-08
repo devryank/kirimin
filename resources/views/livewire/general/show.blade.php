@@ -49,11 +49,13 @@
                                 {{ $singleQty < 1 ? 'disabled' : '' }}>Pesan</button>
                         </div>
                         @else
-                        <button wire:click="createOrderUnit({{$key}})" class="px-3 py-2 bg-green-500 text-white">Beli
-                            Satuan</button>
+                        <button wire:click="createOrderUnit({{$key}})" class="px-3 py-2 bg-green-500 text-white">
+                            Beli Satuan
+                        </button>
                         @if ($product->custom_price)
-                        <button wire:click="createOrderSingle({{$key}})" class="px-3 py-2 bg-green-500 text-white">Beli
-                            Eceran</button>
+                        <button wire:click="createOrderSingle({{$key}})" class="px-3 py-2 bg-green-500 text-white">
+                            Beli Eceran
+                        </button>
                         @endif
                         @endif
                     </div>

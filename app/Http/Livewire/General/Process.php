@@ -14,6 +14,9 @@ class Process extends Component
     public function render()
     {
         $items = Transaction::where('user_id', Auth::user()->id)->where('status', 'process')->get();
+        if (count($items) == 0) {
+            redirect('/');
+        }
         $carts = [];
         foreach ($items as $key => $item) {
             if (!empty($carts)) {
@@ -45,5 +48,20 @@ class Process extends Component
             'carts' => $carts,
             'methods' => Method::all(),
         ])->extends('layouts.general')->section('content');
+    }
+
+    public function buyNow()
+    {
+        $transactions = Transaction::where('user_id', Auth::user()->id)->where('status', 'process')->first();
+        Transaction::where('user_id', Auth::user()->id)->where('shop_id', $transactions->shop_id)->where('status', 'process')->update(['status' => 'waiting', 'method_id' => $this->method]);
+        return redirect('/');
+    }
+
+    public function cancel()
+    {
+        $cancel = Transaction::where('user_id', Auth::user()->id)->where('status', 'process')->update(['status' => 'cart']);
+        if ($cancel) {
+            return redirect()->route('general.cart');
+        }
     }
 }

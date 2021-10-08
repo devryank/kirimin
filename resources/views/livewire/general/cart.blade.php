@@ -65,7 +65,7 @@
                     @endforeach
                 </div>
                 <div class="col-span-12">
-                    <button class="w-full px-3 py-2 bg-green-500 text-white" wire:click="buyNow">Beli Sekarang</button>
+                    <button class="w-full px-3 py-2 bg-green-500 text-white" wire:click="process">Proses</button>
                 </div>
             </div>
         </div>
