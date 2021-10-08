@@ -84,6 +84,14 @@
             </a>
             @endif
 
+            @if (Auth::user()->hasPermissionTo('read transactions'))
+            <a href="{{route('dashboard.order.index')}}"
+                class="flex items-center {{Request::segment(2) == 'orders' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
+                <i class="fas fa-box mr-3"></i>
+                Order
+            </a>
+            @endif
+
             @if (Auth::user()->hasRole('super-admin'))
             <a href="{{route('dashboard.user.index')}}"
                 class="flex items-center {{Request::segment(2) == 'users' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">

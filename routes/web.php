@@ -29,6 +29,7 @@ Route::name('dashboard.')
         Route::get('/roles', App\Http\Livewire\Role\Index::class)->name('role.index');
         Route::get('/shops', App\Http\Livewire\Shop\Index::class)->name('shop.index');
         Route::get('/products', App\Http\Livewire\Product\Index::class)->name('product.index');
+        Route::get('/orders', App\Http\Livewire\Order\Index::class)->name('order.index');
     });
 
 Route::get('/landing', App\Http\Livewire\General\Noauth::class)->name('noauth');
