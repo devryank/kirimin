@@ -62,6 +62,7 @@ class Show extends Component
     public function addToCart($productId)
     {
         if ($this->unitQty > 0) {
+            // check duplicate item
             $trxDuplicate = Transaction::where('user_id', Auth::user()->id)
                 ->where('product_id', $productId)
                 ->where('status', 'cart')
@@ -72,13 +73,30 @@ class Show extends Component
                     'custom_price' => 0,
                 ]);
             } else {
-                Transaction::create([
-                    'id' => date('Ymdhis') . Str::random(4),
-                    'shop_id' => $this->shopId,
-                    'product_id' => $productId,
-                    'user_id' => Auth::user()->id,
-                    'qty' => $this->unitQty,
-                ]);
+                // check last item if there is in cart
+                $lastTrxInCart = Transaction::where('user_id', Auth::user()->id)
+                    ->where('status', 'cart')
+                    ->first();
+                $lastTrxSuccess = Transaction::where('user_id', Auth::user()->id)
+                    ->where('status', 'waiting')
+                    ->first();
+                if ($lastTrxInCart and !$lastTrxSuccess) { // available
+                    Transaction::create([
+                        'trx_id' => $lastTrxInCart->trx_id,
+                        'shop_id' => $this->shopId,
+                        'product_id' => $productId,
+                        'user_id' => Auth::user()->id,
+                        'qty' => $this->unitQty,
+                    ]);
+                } else { // no item in cart
+                    Transaction::create([
+                        'trx_id' => date('Ymdhis') . Str::random(4),
+                        'shop_id' => $this->shopId,
+                        'product_id' => $productId,
+                        'user_id' => Auth::user()->id,
+                        'qty' => $this->unitQty,
+                    ]);
+                }
             }
         }
 
@@ -93,13 +111,30 @@ class Show extends Component
                     'custom_price' => $this->singleQty
                 ]);
             } else {
-                Transaction::create([
-                    'id' => date('Ymdhis') . Str::random(4),
-                    'shop_id' => $this->shopId,
-                    'product_id' => $productId,
-                    'user_id' => Auth::user()->id,
-                    'custom_price' => $this->singleQty
-                ]);
+                // check last item if there is in cart
+                $lastTrxInCart = Transaction::where('user_id', Auth::user()->id)
+                    ->where('status', 'cart')
+                    ->first();
+                $lastTrxSuccess = Transaction::where('user_id', Auth::user()->id)
+                    ->where('status', 'waiting')
+                    ->first();
+                if ($lastTrxInCart and !$lastTrxSuccess) { // available
+                    Transaction::create([
+                        'trx_id' => $lastTrxInCart->trx_id,
+                        'shop_id' => $this->shopId,
+                        'product_id' => $productId,
+                        'user_id' => Auth::user()->id,
+                        'custom_price' => $this->singleQty
+                    ]);
+                } else { // no item in cart
+                    Transaction::create([
+                        'trx_id' => date('Ymdhis') . Str::random(4),
+                        'shop_id' => $this->shopId,
+                        'product_id' => $productId,
+                        'user_id' => Auth::user()->id,
+                        'custom_price' => $this->singleQty
+                    ]);
+                }
             }
         }
         $this->reset(['tagId', 'addUnitQty', 'addSingleQty', 'unitQty', 'singleQty']);
