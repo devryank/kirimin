@@ -18,11 +18,11 @@ class MethodSeeder extends Seeder
         Method::create([
             'name' => 'COD',
         ]);
-        Method::create([
-            'name' => 'OVO',
-        ]);
-        Method::create([
-            'name' => 'DANA',
-        ]);
+        // Method::create([
+        //     'name' => 'OVO',
+        // ]);
+        // Method::create([
+        //     'name' => 'DANA',
+        // ]);
     }
 }
