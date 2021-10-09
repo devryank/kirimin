@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             UnitSeeder::class,
             ProductSeeder::class,
             MethodSeeder::class,
+            TransactionSeeder::class,
         ]);
-        // TransactionSeeder::class,
     }
 }

@@ -154,8 +154,9 @@
                 <h3 class="text-xl dark:text-white">Total: {{ "Rp " . number_format($total,0,',','.') }}</h3>
             </div>
             <div class="col-span-6 text-right">
-                <button class="px-3 py-2 text-white font-light tracking-wider bg-blue-700 rounded">
-                    Kirim
+                <button class="px-3 py-2 text-white font-light tracking-wider bg-blue-700 rounded"
+                    wire:click="sendOrder">
+                    Kirim Pesanan
                 </button>
             </div>
         </div>

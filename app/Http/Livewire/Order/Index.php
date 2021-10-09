@@ -110,4 +110,16 @@ class Index extends Component
         session()->flash('color', 'green');
         session()->flash('message', 'Produk ' . $name . ' berhasil dihapus');
     }
+
+    public function sendOrder()
+    {
+        $shop = Shop::where('user_id', Auth::user()->id)->first();
+        foreach ($this->items as $key => $item) {
+            Transaction::where('user_id', $this->userId)->where('status', 'waiting')->where('shop_id', $shop->id)->update(['status' => 'delivery']);
+        }
+        $this->closeTransactionHandler();
+        $this->reset(['indexTransaction']);
+        session()->flash('color', 'green');
+        session()->flash('message', 'Berhasil konfirmasi pemesanan. Barang dalam perjalanan');
+    }
 }
