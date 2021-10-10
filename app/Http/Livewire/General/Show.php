@@ -139,4 +139,9 @@ class Show extends Component
         }
         $this->reset(['tagId', 'addUnitQty', 'addSingleQty', 'unitQty', 'singleQty']);
     }
+
+    public function cancel()
+    {
+        $this->reset(['tagId', 'addUnitQty', 'addSingleQty', 'unitQty', 'singleQty']);
+    }
 }
