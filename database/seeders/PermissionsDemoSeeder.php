@@ -121,7 +121,7 @@ class PermissionsDemoSeeder extends Seeder
             'name' => 'Super-Admin User',
             'email' => 'superadmin@app.test',
             'phone' => '085814316629',
-            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kecamatan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
         ]);
         $user->assignRole($role1);
 
@@ -129,7 +129,7 @@ class PermissionsDemoSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@app.test',
             'phone' => '085814316629',
-            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kelurahan' => 'Cilandak Timur', 'kecamatan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
         ]);
         $user->assignRole($role2);
 
@@ -137,7 +137,7 @@ class PermissionsDemoSeeder extends Seeder
             'name' => 'Seller',
             'email' => 'seller@app.test',
             'phone' => '085814316629',
-            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kelurahan' => 'Cilandak Timur', 'kecamatan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
         ]);
         $user->assignRole($role3);
 
@@ -145,7 +145,7 @@ class PermissionsDemoSeeder extends Seeder
             'name' => 'User',
             'email' => 'user@app.test',
             'phone' => '085814316629',
-            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kelurahan' => 'Cilandak Timur', 'kecamatan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
         ]);
         $user->assignRole($role4);
 
@@ -153,7 +153,23 @@ class PermissionsDemoSeeder extends Seeder
             'name' => 'Seller 2',
             'email' => 'seller2@app.test',
             'phone' => '085814316629',
-            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '02', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kelurahan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '02', 'rw' => '01', 'no' => '45', 'kelurahan' => 'Cilandak Timur', 'kecamatan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
+        ]);
+        $user->assignRole($role3);
+
+        $user = \App\Models\User::factory()->create([
+            'name' => 'Seller 3',
+            'email' => 'seller3@app.test',
+            'phone' => '085814316629',
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '02', 'rw' => '01', 'no' => '45', 'kelurahan' => 'Cilandak Timur', 'kecamatan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
+        ]);
+        $user->assignRole($role3);
+
+        $user = \App\Models\User::factory()->create([
+            'name' => 'Seller 4',
+            'email' => 'seller4@app.test',
+            'phone' => '085814316629',
+            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '02', 'rw' => '01', 'no' => '45', 'kelurahan' => 'Cilandak Timur', 'kecamatan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
         ]);
         $user->assignRole($role3);
     }

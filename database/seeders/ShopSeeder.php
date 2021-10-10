@@ -25,9 +25,23 @@ class ShopSeeder extends Seeder
         Shop::create([
             'id' => Uuid::uuid4()->getHex(),
             'user_id' => 5,
-            'address_id' => 1,
+            'address_id' => 2,
             'name' => 'Warung Sembako',
-            'photo' => 'warung.jpg'
+            'photo' => 'warung-sembako.jpg'
+        ]);
+        Shop::create([
+            'id' => Uuid::uuid4()->getHex(),
+            'user_id' => 6,
+            'address_id' => 3,
+            'name' => 'Warung Angkringan',
+            'photo' => 'angkringan.jpg'
+        ]);
+        Shop::create([
+            'id' => Uuid::uuid4()->getHex(),
+            'user_id' => 7,
+            'address_id' => 4,
+            'name' => 'Toko Bangunan',
+            'photo' => 'toko-bangunan.jpg'
         ]);
     }
 }
