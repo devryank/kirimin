@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Kirimin</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@
     @if (Route::has('login'))
     <div class="grid grid-cols-12 gap-4">
         <div class="col-span-3 px-6 py-4">
-            <h1 class="text-2xl">KIRIMIN</h1>
+            <h1 class="text-2xl"><a href="{{url('/')}}">KIRIMIN</a></h1>
         </div>
         <div class="col-span-9 px-6 py-4 text-right">
             @auth
@@ -113,7 +113,8 @@
             </div> --}}
 
             <div class="col-span-4">
-                <p>Kirimin adalah wadah para pedagang untuk menjualkan dagangannya kepada lebih banyak orang secara
+                <p>Kirimin adalah wadah para pedagang untuk menjualkan dagangannya kepada lebih banyak calon pembeli
+                    secara
                     online.</p>
             </div>
         </div>
