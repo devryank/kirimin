@@ -36,21 +36,27 @@
                                 </button>
                             </div>
                             <div class="col-span-12">
+                                <button wire:click="cancel"
+                                    class="ml-2 px-3 py-2 bg-red-500 text-white text-xs md:text-md">Batal</button>
                                 <button wire:click="addToCart({{$product->id}})"
                                     class="ml-2 px-3 py-2 bg-green-500 text-white text-xs md:text-md"
                                     {{ $unitQty < 1 ? 'disabled' : '' }}>Pesan</button>
-
-                                <button wire:click="cancel"
-                                    class="ml-2 px-3 py-2 bg-red-500 text-white text-xs md:text-md">Batal</button>
                             </div>
                         </div>
 
                         @elseif ($addSingleQty AND $key == $tagId)
-                        <div class="flex flex-row mx-auto h-10 w-52 rounded-lg relative">
-                            <input type="number" class="w-full mr-2" wire:model="singleQty" placeholder="Contoh: 5000">
-                            <button wire:click="addToCart({{$product->id}})"
-                                class="px-3 py-2 bg-green-500 text-white text-xs md:text-md"
-                                {{ $singleQty < 1 ? 'disabled' : '' }}>Pesan</button>
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-8 flex">
+                                <input type="number" class="w-full mr-2" wire:model="singleQty"
+                                    placeholder="Contoh: 5000">
+                            </div>
+                            <div class="col-span-12 flex">
+                                <button wire:click="addToCart({{$product->id}})"
+                                    class="px-3 py-2 bg-green-500 text-white text-xs md:text-md"
+                                    {{ $singleQty < 1 ? 'disabled' : '' }}>Pesan</button>
+                                <button wire:click="cancel"
+                                    class="ml-2 px-3 py-2 bg-red-500 text-white text-xs md:text-md">Batal</button>
+                            </div>
                         </div>
                         @else
                         <div class="md:flex">
