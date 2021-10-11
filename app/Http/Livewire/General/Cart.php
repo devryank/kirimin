@@ -140,4 +140,9 @@ class Cart extends Component
             return redirect()->route('general.process');
         }
     }
+
+    public function cancel()
+    {
+        $this->reset(['tagId', 'addUnitQty', 'addSingleQty', 'unitQty', 'singleQty']);
+    }
 }
