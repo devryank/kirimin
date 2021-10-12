@@ -88,7 +88,13 @@
             <a href="{{route('dashboard.order.index')}}"
                 class="flex items-center {{Request::segment(2) == 'orders' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
                 <i class="fas fa-box mr-3"></i>
-                Order
+                Pesanan
+            </a>
+
+            <a href="{{route('dashboard.delivery.index')}}"
+                class="flex items-center {{Request::segment(2) == 'deliveries' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
+                <i class="fas fa-box mr-3"></i>
+                Pengiriman
             </a>
             @endif
 
