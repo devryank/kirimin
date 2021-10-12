@@ -24,7 +24,7 @@
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-8 flex">
                             <button wire:click="decreaseQty"
-                                class="mt-1 font-semibold rounded-full border bg-green-500 text-white h-8 w-16 sm:w-10 md:w-8 focus:outline-none cursor-pointer">
+                                class="mt-1 font-semibold rounded-full border bg-green-500 hover:bg-green-600 text-white h-8 w-16 sm:w-10 md:w-8 focus:outline-none cursor-pointer">
                                 <span class="m-auto">-</span>
                             </button>
                             <input type="hidden"
@@ -35,7 +35,7 @@
                                 <span class="text-sm">{{ $unitQty }} {{ $item->product->unit->name }}</span>
                             </div>
                             <button wire:click="increaseQty"
-                                class="mt-1 font-semibold rounded-full border bg-green-500 text-white h-8 w-16 sm:w-10 md:w-8 focus:outline-none cursor-pointer">
+                                class="mt-1 font-semibold rounded-full border bg-green-500 hover:bg-green-600 text-white h-8 w-16 sm:w-10 md:w-8 focus:outline-none cursor-pointer">
                                 <span class="m-auto">+</span>
                             </button>
                         </div>
@@ -43,7 +43,7 @@
                             <button wire:click="cancel"
                                 class="ml-2 px-3 py-2 bg-red-500 text-white text-xs md:text-md">Batal</button>
                             <button wire:click="addToCart({{$item->product->id}})"
-                                class="ml-2 px-3 py-2 bg-green-500 text-white text-xs md:text-md"
+                                class="ml-2 px-3 py-2 bg-green-500 hover:bg-green-600 text-white text-xs md:text-md"
                                 {{ $unitQty < 1 ? 'disabled' : '' }}>Pesan</button>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-span-12 flex">
                             <button wire:click="addToCart({{$item->product->id}})"
-                                class="px-3 py-2 bg-green-500 text-white text-xs md:text-md"
+                                class="px-3 py-2 bg-green-500 hover:bg-green-600 text-white text-xs md:text-md"
                                 {{ $singleQty < 1 ? 'disabled' : '' }}>Pesan</button>
                             <button wire:click="cancel"
                                 class="ml-2 px-3 py-2 bg-red-500 text-white text-xs md:text-md">Batal</button>
@@ -64,13 +64,14 @@
                     @else
                     <div class="md:flex">
                         <button wire:click="createOrderUnit({{$key}})"
-                            class="mr-2 mb-2 md:mb-0 px-3 py-2 bg-green-500 text-white text-xs md:text-md"
+                            class="mr-2 mb-2 md:mb-0 px-3 py-2 bg-green-500 hover:bg-green-600 text-white text-xs md:text-md"
                             style="white-space: nowrap">
                             Beli per {{ $item->product->unit->name }}
                         </button>
                         @if ($item->product->custom_price)
                         <button wire:click="createOrderSingle({{$key}})"
-                            class="px-3 py-2 bg-green-500 text-white text-xs md:text-md" style="white-space: nowrap">
+                            class="px-3 py-2 bg-green-500 hover:bg-green-600 text-white text-xs md:text-md"
+                            style="white-space: nowrap">
                             Beli Eceran
                         </button>
                     </div>
@@ -102,8 +103,9 @@
                     @endforeach
                 </div>
                 <div class="col-span-12 mt-5">
-                    <button class="w-full px-3 py-2 bg-green-500 disabled:opacity-60 text-white" wire:click="process"
-                        {{ empty($selectShop) ? 'disabled' : '' }}>Proses</button>
+                    <button
+                        class="w-full px-3 py-2 bg-green-500 {{ empty($selectShop) ? '' : 'hover:bg-green-600' }} disabled:opacity-60 text-white"
+                        wire:click="process" {{ empty($selectShop) ? 'disabled' : '' }}>Proses</button>
                 </div>
             </div>
         </div>
