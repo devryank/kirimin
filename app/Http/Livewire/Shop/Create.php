@@ -125,12 +125,12 @@ class Create extends Component
                 $this->kelurahan = $kelurahan->nama;
             }
 
-            $imageName = date('mdYHis') . date('mdYHis') . $this->photo->getClientOriginalName();
+            $imageName = date('mdYHis') . $this->photo->getClientOriginalName();
 
             if (empty($checkAddress)) { // tidak ditemukan alamat yang sama
 
                 DB::transaction(function () {
-                    $imageName = date('mdYHis') . date('mdYHis') . $this->photo->getClientOriginalName();
+                    $imageName = date('mdYHis') . $this->photo->getClientOriginalName();
                     $address = Address::create([
                         'jalan' => $this->jalan,
                         'rt' => $this->rt,

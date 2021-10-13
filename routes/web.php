@@ -41,6 +41,7 @@ Route::middleware(['auth:sanctum', 'verified'])
         Route::get('/toko/{id}', App\Http\Livewire\General\Show::class)->name('show');
         Route::get('/cart', App\Http\Livewire\General\Cart::class)->name('cart');
         Route::get('/process', App\Http\Livewire\General\Process::class)->name('process');
+        Route::get('/profile', App\Http\Livewire\General\Profile::class)->name('profile');
     });
 
 Route::get('/city/{id}', [App\Http\Controllers\AddressController::class, 'city'])->name('city');
