@@ -23,12 +23,13 @@
             @endif
             @foreach ($shops as $shop)
             <a href="{{ route('general.show', $shop->id) }}"
-                class="col-span-3 max-w-sm rounded overflow-hidden shadow-lg">
-                <img class="w-full" src="{{ asset('storage/toko/' . $shop->photo) }}" alt="Sunset in the mountains">
+                class="col-span-6 md:col-span-4 lg:col-span-3 max-w-sm rounded overflow-hidden shadow-lg">
+                <img class="w-full" src="{{ asset('storage/toko/' . $shop->photo) }}">
                 <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2">{{ $shop->name }}</div>
-                    <p class="leading-none text-sm">
-                        {{ $shop->address->jalan . ' ' . $shop->address->rt . '/' . $shop->address->rw . ', ' . $shop->address->kelurahan . ', ' . $shop->address->kecamatan }}
+                    <div class="font-bold leading-tight text-lg md:text-xl mb-2">{{ $shop->name }}</div>
+                    <p class="leading-none text-gray-600 text-xs md:text-sm">
+                        {{ $shop->address->jalan . ' ' . $shop->address->rt . '/' . $shop->address->rw . ', ' .
+                        $shop->address->kelurahan . ', ' . $shop->address->kecamatan }}
                     </p>
                 </div>
             </a>

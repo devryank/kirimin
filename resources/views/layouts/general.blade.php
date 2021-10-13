@@ -61,7 +61,7 @@
 
     <footer class="px-14 mt-10">
         <div class="grid grid-cols-12 gap-4">
-            <div class="col-start-2 col-span-3">
+            <div class="col-span-6 md:col-start-2 md:col-span-3">
                 <h5>Layanan</h5>
                 <ul>
                     <li>
@@ -82,7 +82,7 @@
                 </ul>
             </div>
 
-            <div class="col-span-3">
+            <div class="col-span-6 md:col-span-3">
                 <h5>Halaman</h5>
                 <ul>
                     <li>
@@ -94,25 +94,7 @@
                 </ul>
             </div>
 
-            {{-- <div class="col-span-3">
-                <h5>Pembayaran</h5>
-                <img class="logo" src="assets/img/bca.png" width="50px">
-                <img class="logo" src="assets/img/bri.png" width="75px">
-                <img class="logo" src="assets/img/gopay.png" width="65px">
-                <img class="logo" src="assets/img/dana.png" width="60px">
-                <img class="logo" src="assets/img/ovo.png" width="50px">
-                <img class="logo" src="assets/img/alfamart.png" width="50px">
-                <img class="logo" src="assets/img/indomaret.png" width="60px">
-
-                <h5 class="mt-4" id="coba-coba">Jasa Pengiriman</h5>
-
-                <img class="logo" src="assets/img/jne.png" width="60px">
-                <img class="logo" src="assets/img/gosend.png" width="70px">
-                <img class="logo" src="assets/img/grab-express.png" width="75px">
-                <img class="logo" src="assets/img/ninja-express.png" width="60px">
-            </div> --}}
-
-            <div class="col-span-4">
+            <div class="col-span-12 md:col-span-4">
                 <p>Kirimin adalah wadah para pedagang untuk menjualkan dagangannya kepada lebih banyak calon pembeli
                     secara
                     online.</p>
