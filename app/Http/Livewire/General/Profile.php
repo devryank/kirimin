@@ -4,12 +4,15 @@ namespace App\Http\Livewire\General;
 
 use App\Models\User;
 use Livewire\Component;
+use App\Models\Transaction;
+use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class Profile extends Component
 {
+    use WithPagination;
     use WithFileUploads;
 
     // page
@@ -26,6 +29,10 @@ class Profile extends Component
     public $photo;
     public $password;
     public $password_confirmation;
+
+    // history trx
+    protected $trxs;
+    public $paginate = 10;
 
     public function mount()
     {
@@ -46,7 +53,10 @@ class Profile extends Component
         }
 
         if ($this->historyTrx) {
-            return view('livewire.general.profile', [])->extends('layouts.general')->section('content');
+            $this->trxs = Transaction::where('user_id', Auth::user()->id)->paginate($this->paginate);
+            return view('livewire.general.profile', [
+                'trxs' => $this->trxs,
+            ])->extends('layouts.general')->section('content');
         }
     }
 
@@ -55,13 +65,6 @@ class Profile extends Component
         $this->profile = true;
         $this->updateProfile = false;
         $this->historyTrx = false;
-    }
-
-    public function historyTrx()
-    {
-        $this->historyTrx = true;
-        $this->updateProfile = false;
-        $this->profile = false;
     }
 
     public function openUpdateProfile()
@@ -126,5 +129,12 @@ class Profile extends Component
     public function cancel()
     {
         $this->profile();
+    }
+
+    public function historyTrx()
+    {
+        $this->historyTrx = true;
+        $this->updateProfile = false;
+        $this->profile = false;
     }
 }

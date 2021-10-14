@@ -1,3 +1,11 @@
+@push('css')
+<style>
+    #pagination nav p {
+        margin-right: 20px;
+    }
+</style>
+@endpush
+
 <div>
     <div class="flex justify-center">
         <button class="bg-green-300 hover:bg-green-400 h-12 w-12 rounded-full p-3 mr-5" wire:click="profile">
@@ -164,7 +172,37 @@
     @endif
 
     @if ($historyTrx)
+    <div class="flex justify-center mt-10">
+        <div class="w-1/2 border border-gray-300 rounded-lg p-4">
+            <div class="grid grid-cols-12 gap-4">
+                @foreach ($trxs as $trx)
+                <div class="col-span-2">
+                    <a href="{{ route('general.show', $trx->product->shop->id) }}">
+                        <img src="{{ asset('storage/' . $trx->product->photo) }}" alt="" class="w-full">
+                    </a>
+                </div>
+                <div class="col-span-10">
+                    <a href="{{ route('general.show', $trx->product->shop->id) }}">
+                        <h3 class="text-lg font-bold">{{ $trx->product->shop->name }}</h3>
+                    </a>
+                    <hr class="my-2">
+                    <p>{{ $trx->product->name }} {{ $trx->qty !== 0 ? ' - ' . $trx->qty . ' ' .
+                        $trx->product->unit->name : '' }}</p>
+                    <p>{{ $trx->custom_price == 0 ?
+                        "Rp" . number_format($trx->product->price * $trx->qty,0,',','.') :
+                        "Rp" . number_format($trx->custom_price,0,',','.') }}
+                    </p>
+                </div>
+                @endforeach
+            </div>
 
+            <div class="grid grid-cols-12 gap-4 my-8">
+                <div class="col-span-12 mx-auto" id="pagination">
+                    {{$trxs->links()}}
+                </div>
+            </div>
+        </div>
+    </div>
     @endif
 
     @push('js')
