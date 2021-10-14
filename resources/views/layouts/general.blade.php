@@ -38,7 +38,7 @@
         </div>
         <div class="col-span-9 px-6 py-4 text-right">
             @auth
-            <a href="{{ url('/dashboard') }}" class="mx-2 text-sm text-gray-700 underline">Profile</a>
+            <a href="{{ url('/profile') }}" class="mx-2 text-sm text-gray-700 underline">Profile</a>
             <a href="{{ url('/cart') }}" class="mx-2 text-sm text-gray-700 underline">Cart</a>
             <a href="{{ route('logout') }}" class="mx-2 text-sm text-gray-700 underline" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">

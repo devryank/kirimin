@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Profile extends Component
 {
@@ -21,21 +22,20 @@ class Profile extends Component
     public $name;
     public $email;
     public $phone;
+    public $defaultPhoto;
     public $photo;
+    public $password;
+    public $password_confirmation;
 
     public function mount()
     {
         $this->userId = Auth::user()->id;
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
-        $this->phone = Auth::user()->phone;
-        $this->photo = Auth::user()->profile_photo_path;
     }
 
     public function render()
     {
         if ($this->profile) {
-            $user = Auth::user();
+            $user = User::findOrFail($this->userId);
             return view('livewire.general.profile', [
                 'user' => $user,
             ])->extends('layouts.general')->section('content');
@@ -69,6 +69,12 @@ class Profile extends Component
         $this->updateProfile = true;
         $this->historyTrx = false;
         $this->profile = false;
+
+        $this->userId = Auth::user()->id;
+        $this->name = Auth::user()->name;
+        $this->email = Auth::user()->email;
+        $this->phone = Auth::user()->phone;
+        $this->defaultPhoto = Auth::user()->profile_photo_path;
     }
 
     public function updateProfile()
@@ -77,16 +83,22 @@ class Profile extends Component
             'name' => ['required', 'string', 'min:2', 'max:100'],
             'email' => ['required'],
             'phone' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:11', 'max:13'],
-            'photo' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'photo' => ['nullable', 'max:10000'],
+            'password' => [
+                'nullable', 'min:6', 'confirmed'
+            ],
         ]);
 
         if (request()->user()->hasPermissionTo('update users')) {
-            if ($this->photo == 'profile.png') { // not change image
-                $imageName = $this->photo;
+            if (empty($this->photo)) { // not change image
+                $imageName = $this->defaultPhoto;
             } else { // change image 
+                $this->validate([
+                    'photo' => ['mimes:jpeg,jpg,png,gif'],
+                ]);
                 $imageName = date('mdYHis') . $this->photo->getClientOriginalName();
                 $this->photo->storeAs('/public/profile', $imageName);
-                // @unlink('storage/profile/' . $this->photo);
+                @unlink('storage/profile/' . $this->defaultPhoto);
             }
             $user = User::findOrFail($this->userId);
             $user->update([
@@ -95,11 +107,19 @@ class Profile extends Component
                 'phone' => $this->phone,
                 'profile_photo_path' => $imageName,
             ]);
-            // $this->emit('userStored');
+            if (!empty($this->password)) {
+                $user->update([
+                    'password' => Hash::make($this->password),
+                ]);
+            }
+            $this->reset(['password', 'password_confirmation']);
 
             $this->profile = true;
             $this->updateProfile = false;
             $this->historyTrx = false;
+
+            session()->flash('color', 'green');
+            session()->flash('message', 'Profile berhasil diubah');
         }
     }
 

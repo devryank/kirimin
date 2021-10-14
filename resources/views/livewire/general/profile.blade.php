@@ -12,10 +12,32 @@
     @if ($profile)
     <div class="flex justify-center mt-10">
         <div class="w-1/2 border border-gray-300 rounded-lg p-4">
+            @if (session()->has('message'))
+            {{-- alert --}}
+            <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-{{session('color')}}-500 alert">
+                <span class="text-xl inline-block mr-5 align-middle">
+                    @if (session('color') == 'red')
+                    <i class="fas fa-info-circle"></i>
+                    @else
+                    <i class="fas fa-check"></i>
+                    @endif
+                </span>
+                <span class="inline-block align-middle mr-8">
+                    {{session('message')}}
+                </span>
+                <button
+                    class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+                    onclick="closeAlert(event)">
+                    <span>×</span>
+
+                </button>
+            </div>
+            @endif
+
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-3">
                     <img src="{{ asset('storage/profile/' . $user->profile_photo_path) }}"
-                        class="h-full w-full rounded-full">
+                        class="h-32 w-32 rounded-full object-cover">
                 </div>
                 <div class="col-start-5 col-span-8">
                     <div class="grid grid-cols-12 gap-4">
@@ -56,15 +78,19 @@
                 @csrf
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-3">
-                        @if ($photo !== 'profile.png')
-                        <img src="{{ $photo->temporaryUrl() }}" class="w-full rounded-full mb-3">
-                        @else
-                        <img src="{{ asset('storage/profile/' . $photo) }}" class="rounded-full mb-3">
+                        @if (empty($photo))
+                        <img src="{{ asset('storage/profile/' . $defaultPhoto) }}"
+                            class="h-32 w-32 object-cover rounded-full mb-3">
+                        @elseif($photo)
+                        <img src="{{ $photo->temporaryUrl() }}" class="h-32 w-32 object-cover rounded-full mb-3">
                         <div wire:loading wire:target="photo">
                             Sedang mengupload ...
                         </div>
                         @endif
                         <input type="file" wire:model="photo" style="width: 100px;">
+                        @error('photo')
+                        <small class="text-red-500">{{$message}}</small>
+                        @enderror
                     </div>
                     <div class="col-start-5 col-span-8">
                         <div class="grid grid-cols-12 gap-4">
@@ -73,18 +99,55 @@
                             </div>
                             <div class="col-span-9">
                                 : <input type="text" wire:model="name">
+                                <br>
+                                @error('name')
+                                <small class="text-red-500">{{$message}}</small>
+                                @enderror
                             </div>
                             <div class="col-span-3 flex items-center">
                                 Email
                             </div>
                             <div class="col-span-9">
                                 : <input type="text" wire:model="email">
+                                <br>
+                                @error('email')
+                                <small class="text-red-500">{{$message}}</small>
+                                @enderror
                             </div>
                             <div class="col-span-3 flex items-center">
                                 No HP
                             </div>
                             <div class="col-span-9">
                                 : <input type="text" wire:model="phone">
+                                <br>
+                                @error('phone')
+                                <small class="text-red-500">{{$message}}</small>
+                                @enderror
+                            </div>
+                            <div class="col-span-12">
+                                <hr>
+                                <h3 class="text-md text-gray-600 my-2">Ubah Password (kosongkan jika tidak ingin diubah)
+                                </h3>
+                            </div>
+                            <div class="col-span-3 items-center">
+                                Password
+                            </div>
+                            <div class="col-span-9">
+                                <input type="password" wire:model="password">
+                                <br>
+                                @error('password')
+                                <small class="text-red-500">{{$message}}</small>
+                                @enderror
+                            </div>
+                            <div class="col-span-3 items-center">
+                                Password Baru
+                            </div>
+                            <div class="col-span-9">
+                                <input type="password" wire:model="password_confirmation">
+                                <br>
+                                @error('password')
+                                <small class="text-red-500">{{$message}}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -103,4 +166,17 @@
     @if ($historyTrx)
 
     @endif
+
+    @push('js')
+    <script>
+        function closeAlert(event){
+          let element = event.target;
+          while(element.nodeName !== "BUTTON"){
+            element = element.parentNode;
+          }
+          element.parentNode.parentNode.removeChild(element.parentNode);
+        }
+
+    </script>
+    @endpush
 </div>
