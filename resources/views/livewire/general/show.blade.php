@@ -52,8 +52,8 @@
                             </div>
                             <div class="col-span-12 flex">
                                 <button wire:click="addToCart({{$product->id}})"
-                                    class="px-3 py-2 bg-green-500 hover:bg-green-600 text-white text-xs md:text-md"
-                                    {{ $singleQty < 1 ? 'disabled' : '' }}>Pesan</button>
+                                    class="px-3 py-2 bg-green-500 hover:bg-green-600 text-white text-xs md:text-md" {{
+                                    $singleQty < 1 ? 'disabled' : '' }}>Pesan</button>
                                 <button wire:click="cancel"
                                     class="ml-2 px-3 py-2 bg-red-500 hover:bg-red-600 text-white text-xs md:text-md">Batal</button>
                             </div>

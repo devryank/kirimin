@@ -25,7 +25,7 @@ class Show extends Component
 
     public function render()
     {
-        $shop = Shop::findOrFail($this->shopId)->first();
+        $shop = Shop::findOrFail($this->shopId);
         $products = Product::where('shop_id', $this->shopId)->where('stock', 'ready')->get();
         return view('livewire.general.show', [
             'shop' => $shop,
