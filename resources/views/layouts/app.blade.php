@@ -7,6 +7,7 @@
     <title>Tailwind Admin Template</title>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
+    <meta name="dicoding:email" content="ryansg41@gmail.com">
 
     <!-- Tailwind -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
@@ -76,7 +77,7 @@
             </a>
             @endif
 
-            @if (Auth::user()->hasPermissionTo('read products'))
+            @if (Auth::user()->hasRole('seller'))
             <a href="{{route('dashboard.product.index')}}"
                 class="flex items-center {{Request::segment(2) == 'products' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
                 <i class="fas fa-box mr-3"></i>

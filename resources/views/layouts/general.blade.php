@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="dicoding:email" content="ryansg41@gmail.com">
 
     <title>Kirimin</title>
 
