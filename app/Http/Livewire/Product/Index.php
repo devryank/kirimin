@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Product;
 
+use App\Models\Shop;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -37,9 +38,10 @@ class Index extends Component
 
     public function render()
     {
+        $shop = Shop::where('user_id', Auth::user()->id)->first();
         $products = $this->search === NULL     ?
-            Product::orderBy('id', 'asc')->paginate($this->paginate) :
-            Product::orderBy('id', 'asc')->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate);
+            Product::where('shop_id', $shop->id)->orderBy('id', 'asc')->paginate($this->paginate) :
+            Product::where('shop_id', $shop->id)->orderBy('id', 'asc')->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate);
 
         return view('livewire.product.index', [
             'products' => $products,

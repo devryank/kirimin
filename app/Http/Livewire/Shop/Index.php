@@ -3,17 +3,24 @@
 namespace App\Http\Livewire\Shop;
 
 use App\Models\Shop;
+use App\Models\Product;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
+    public $showProduct = false;
     public $showShop = false;
     public $createShop = false;
     public $editShop = false;
     public $deleteShop = false;
+    public $deleteProduct = false;
     public $search;
     public $paginate = 10;
+
+    public $shopId;
+    public $searchProduct;
+    public $paginateProduct = 10;
 
     protected $listeners = [
         'refreshShop' => '$refresh',
@@ -22,6 +29,7 @@ class Index extends Component
         'closeShop' => 'closeShopHandler',
         'userProhibited' => 'userProhibitedHandler',
         'shopDestroyed' => 'shopDestroyedHandler',
+        'productDestroyed' => 'productDestroyedHandler',
     ];
 
     protected $updateQueryString = [
@@ -35,21 +43,35 @@ class Index extends Component
 
     public function render()
     {
-        $shops = $this->search === NULL     ?
-            Shop::orderBy('id', 'asc')->paginate($this->paginate) :
-            Shop::orderBy('id', 'asc')->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate);
+        if (!$this->showProduct) {
+            $shops = $this->search === NULL     ?
+                Shop::orderBy('id', 'asc')->paginate($this->paginate) :
+                Shop::orderBy('id', 'asc')->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate);
 
-        return view('livewire.shop.index', [
-            'shops' => $shops,
-        ]);
+            return view('livewire.shop.index', [
+                'shops' => $shops,
+            ]);
+        }
+        if ($this->showProduct) {
+            $shop = Shop::where('id', $this->shopId)->first();
+            $products = $this->searchProduct === NULL     ?
+                Product::where('shop_id', $shop->id)->orderBy('id', 'asc')->paginate($this->paginateProduct) :
+                Product::where('shop_id', $shop->id)->orderBy('id', 'asc')->where('name', 'like', '%' . $this->searchProduct . '%')->paginate($this->paginateProduct);
+
+            return view('livewire.shop.show-product', [
+                'products' => $products,
+            ]);
+        }
     }
 
     public function closeShopHandler()
     {
+        $this->showProduct = false;
         $this->showShop = false;
         $this->editShop = false;
         $this->createShop = false;
         $this->deleteShop = false;
+        $this->deleteProduct = false;
     }
 
     public function showShop($shopId)
@@ -111,5 +133,27 @@ class Index extends Component
         $this->closeShopHandler();
         session()->flash('color', 'green');
         session()->flash('message', 'Berhasil menghapus ' . $name);
+    }
+
+    public function deleteProduct($id)
+    {
+        $this->closeShopHandler();
+        $this->deleteProduct = true;
+        $this->emit('deleteProduct', $id); // Shop/DeleteProduct.php
+    }
+
+    public function productDestroyedHandler($name)
+    {
+        $this->closeShopHandler();
+        session()->flash('color', 'green');
+        session()->flash('message', 'Berhasil menghapus ' . $name);
+    }
+
+    public function showProduct($id)
+    {
+        $this->closeShopHandler();
+        $this->shopId = $id;
+        $this->showProduct = true;
+        // $this->emitTo('ShowProduct', 'showProductList', $id); // Shop/ShowProduct
     }
 }

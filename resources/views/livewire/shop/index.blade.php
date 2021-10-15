@@ -11,7 +11,10 @@
     @if ($deleteShop)
     @livewire('shop.delete')
     @endif
-    <h1 class="text-3xl text-black dark:text-white pb-6">Warung</h1>
+    @if ($deleteProduct)
+    @livewire('shop.delete-product')
+    @endif
+    <h1 class="text-3xl text-black dark:text-white pb-6">Toko</h1>
 
     @if (session()->has('message'))
     {{-- alert --}}
@@ -36,7 +39,7 @@
     @endif
 
     <div class="w-full">
-
+        @if (!$showProduct)
         <div class="px-5 py-5 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="hidden sm:hidden md:block">
                 <div class="grid grid-cols-6">
@@ -101,15 +104,15 @@
                             <td class="w-1/3 text-left py-3 px-4">{{$shop->user->name}}</td>
                             <td class="w-1/3 text-left py-3 px-4">
                                 {{
-                                    $shop->address->jalan . ' ' .
-                                    $shop->address->rt . '/' .
-                                    $shop->address->rw . ' no.' .
-                                    $shop->address->no . ' ' .
-                                    $shop->address->kelurahan . ', ' .
-                                    $shop->address->kecamatan . ', ' .
-                                    $shop->address->kota . ', ' .
-                                    $shop->address->provinsi . ', ' .
-                                    $shop->address->kodepos
+                                $shop->address->jalan . ' ' .
+                                $shop->address->rt . '/' .
+                                $shop->address->rw . ' no.' .
+                                $shop->address->no . ' ' .
+                                $shop->address->kelurahan . ', ' .
+                                $shop->address->kecamatan . ', ' .
+                                $shop->address->kota . ', ' .
+                                $shop->address->provinsi . ', ' .
+                                $shop->address->kodepos
                                 }}
                             </td>
                             <td class="w-1/3 text-left py-3 px-4">
@@ -121,6 +124,14 @@
                                     <button wire:click="editShop('{{$shop->id}}')"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Ubah</button>
 
+                                    @endif
+
+                                    @if (Auth::user()->hasRole('super-admin'))
+                                    <button wire:click="showProduct('{{$shop->id}}')"
+                                        class="px-3 py-2 text-white font-light tracking-wider bg-blue-700 rounded"
+                                        onclick="scrollUp()">
+                                        Produk
+                                    </button>
                                     @endif
 
                                     @if ((Auth::user()->hasPermissionTo('delete shops') AND Auth::user()->id ==
@@ -141,6 +152,11 @@
             </div>
             {{$shops->links()}}
         </div>
+        @endif
+
+        @if ($showProduct)
+        @livewire('shop.show-product')
+        @endif
     </div>
 
     @push('js')
