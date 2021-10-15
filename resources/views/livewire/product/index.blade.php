@@ -11,7 +11,7 @@
     @if ($deleteProduct)
     @livewire('product.delete')
     @endif
-    <h1 class="text-3xl text-black dark:text-white pb-6">Products</h1>
+    <h1 class="text-3xl text-black dark:text-white pb-6">Produk</h1>
 
     @if (session()->has('message'))
     {{-- alert --}}

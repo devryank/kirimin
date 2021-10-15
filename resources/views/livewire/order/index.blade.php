@@ -2,7 +2,7 @@
     <div wire:loading class="dark:text-white">
         Please wait ...
     </div>
-    <h1 class="text-3xl text-black dark:text-white pb-6">Transactions</h1>
+    <h1 class="text-3xl text-black dark:text-white pb-6">Pesanan</h1>
 
     @if (session()->has('message'))
     {{-- alert --}}
@@ -138,10 +138,12 @@
                     <tr>
                         <td class="w-1/3 text-left py-3 px-4">{{$item->product->name}}</td>
                         <td class="w-1/3 text-left py-3 px-4">
-                            {{ $item->qty == 0 ? "Rp " . number_format($item->custom_price,0,',','.') : $item->qty . ' ' . $item->product->unit->name }}
+                            {{ $item->qty == 0 ? "Rp " . number_format($item->custom_price,0,',','.') : $item->qty . ' '
+                            . $item->product->unit->name }}
                         </td>
                         <td class="w-1/3 text-left py-3 px-4">
-                            {{ $item->qty == 0 ? "Rp " . number_format($item->custom_price,0,',','.') : "Rp " . number_format($item->qty * $item->product->price,0,',','.') }}
+                            {{ $item->qty == 0 ? "Rp " . number_format($item->custom_price,0,',','.') : "Rp " .
+                            number_format($item->qty * $item->product->price,0,',','.') }}
                         </td>
                     </tr>
                     @endforeach
