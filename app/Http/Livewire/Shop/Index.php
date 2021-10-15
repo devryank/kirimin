@@ -44,10 +44,15 @@ class Index extends Component
     public function render()
     {
         if (!$this->showProduct) {
-            $shops = $this->search === NULL     ?
-                Shop::orderBy('id', 'asc')->paginate($this->paginate) :
-                Shop::orderBy('id', 'asc')->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate);
-
+            if (Auth::user()->hasRole('super-admin')) {
+                $shops = $this->search === NULL     ?
+                    Shop::orderBy('id', 'asc')->paginate($this->paginate) :
+                    Shop::orderBy('id', 'asc')->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate);
+            } else if (Auth::user()->hasRole('seller')) {
+                $shops = $this->search === NULL     ?
+                    Shop::where('user_id', Auth::user()->id)->orderBy('id', 'asc')->paginate($this->paginate) :
+                    Shop::where('user_id', Auth::user()->id)->orderBy('id', 'asc')->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate);
+            }
             return view('livewire.shop.index', [
                 'shops' => $shops,
             ]);
