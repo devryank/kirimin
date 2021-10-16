@@ -23,6 +23,10 @@ class Index extends Component
                 ->extends('layouts.general')
                 ->section('content');
         }
+
+        if (!Auth::user()->hasRole('user')) {
+            return redirect()->route('dashboard');
+        }
     }
 
     public function render()
