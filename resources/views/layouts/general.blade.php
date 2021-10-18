@@ -60,6 +60,7 @@
     @endif
     @yield('content')
 
+    @if (Auth::user())
     <footer class="px-14 mt-10">
         <div class="grid grid-cols-12 gap-4">
             <div class="col-span-6 md:col-start-2 md:col-span-3">
@@ -102,6 +103,7 @@
             </div>
         </div>
     </footer>
+    @endif
     @stack('js')
     <!-- AlpineJS -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
