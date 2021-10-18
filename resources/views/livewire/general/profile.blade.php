@@ -182,9 +182,31 @@
                     </a>
                 </div>
                 <div class="col-span-10">
-                    <a href="{{ route('general.show', $trx->product->shop->id) }}">
-                        <h3 class="text-lg font-bold">{{ $trx->product->shop->name }}</h3>
-                    </a>
+                    <div class="flex">
+                        <div class="flex-1">
+                            <a href="{{ route('general.show', $trx->product->shop->id) }}">
+                                <h3 class="text-lg font-bold">{{ $trx->product->shop->name }}</h3>
+                            </a>
+                        </div>
+                        <div class="flex-1 text-right">
+                            @if ($trx->status == 'cart')
+                            <span class="px-2 py-1 bg-gray-400 text-white text-sm rounded-full">Di Keranjang</span>
+                            @elseif($trx->status == 'process')
+                            <span class="px-2 py-1 bg-blue-400 text-white text-sm rounded-full">Menunggu
+                                Pembayaran</span>
+                            @elseif($trx->status == 'waiting')
+                            <span class="px-2 py-1 bg-purple-400 text-white text-sm rounded-full">Menunggu
+                                Verifikasi</span>
+                            @elseif($trx->status == 'delivery')
+                            <span class="px-2 py-1 bg-indigo-400 text-white text-sm rounded-full">Dalam
+                                Pengiriman</span>
+                            @elseif($trx->status == 'success')
+                            <span class="px-2 py-1 bg-green-400 text-white text-sm rounded-full">Selesai</span>
+                            @elseif($trx->status == 'failed')
+                            <span class="px-2 py-1 bg-red-400 text-white text-sm rounded-full">Gagal</span>
+                            @endif
+                        </div>
+                    </div>
                     <hr class="my-2">
                     <p>{{ $trx->product->name }} {{ $trx->qty !== 0 ? ' - ' . $trx->qty . ' ' .
                         $trx->product->unit->name : '' }}</p>
