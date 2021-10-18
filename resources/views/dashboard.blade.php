@@ -8,11 +8,12 @@
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{-- Start card data --}}
+            @if (Auth::user()->hasRole('super-admin'))
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-5">
                 <div class="px-4 py-5 bg-yellow-600 text-white rounded">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <p class="text-2xl">1.2k</p>
+                            <p class="text-2xl">{{$totalProducts}}</p>
                             Products
                         </div>
                         <div class="flex items-center justify-center">
@@ -23,8 +24,8 @@
                 <div class="px-4 py-5 bg-blue-600 text-white rounded">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <p class="text-2xl">120k</p>
-                            Sales
+                            <p class="text-2xl">{{ $totalTransactions }}</p>
+                            Transactions
                         </div>
                         <div class="flex items-center justify-center">
                             <i class="fas fa-chart-line fa-2x"></i>
@@ -34,18 +35,18 @@
                 <div class="px-4 py-5 bg-indigo-600 text-white rounded">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <p class="text-2xl">$5923</p>
-                            Revenue
+                            <p class="text-2xl">{{ $totalShops }}</p>
+                            Shops
                         </div>
                         <div class="flex items-center justify-center">
-                            <i class="fas fa-dollar-sign fa-2x"></i>
+                            <i class="fas fa-store fa-2x"></i>
                         </div>
                     </div>
                 </div>
                 <div class="px-4 py-5 bg-purple-600 text-white rounded">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <p class="text-2xl">20k</p>
+                            <p class="text-2xl">{{ $totalCustomers }}</p>
                             Customers
                         </div>
                         <div class="flex items-center justify-center">
@@ -54,11 +55,38 @@
                     </div>
                 </div>
             </div>
+            @endif
+            @if (Auth::user()->hasRole('seller'))
+            <div class="grid grid-cols-4 lg:grid-cols-6 gap-2 mb-5">
+                <div class="px-4 py-5 col-start-3 grid-cols-2 bg-yellow-600 text-white rounded">
+                    <div class="flex">
+                        <div>
+                            <p class="text-2xl">{{$totalProducts}}</p>
+                            Products
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-boxes fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4 py-5 grid-cols-2 bg-blue-600 text-white rounded">
+                    <div class="flex">
+                        <div>
+                            <p class="text-2xl">{{ $totalTransactions }}</p>
+                            Transactions
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-chart-line fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             {{-- End card data --}}
 
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="col-span-4 lg:col-span-3"
-                     style="height: fit-content;">
+                <div class="col-span-4 lg:col-span-3" style="height: fit-content;">
                     <div class="bg-white dark:bg-gray-800 dark:text-white overflow-hidden shadow-xl sm:rounded-lg">
                         <div class="p-3 bg-white dark:bg-gray-800 dark:border-gray-700">
                             <!--Graph Card-->
@@ -66,8 +94,7 @@
                                 <h5 class="font-bold text-black dark:text-white">Daily Income</h5>
                             </div>
                             <div class="p-5">
-                                {{-- <div class="ct-chart ct-golden-section"
-                                id="chart1"></div> --}}
+                                {{-- <div class="ct-chart ct-golden-section" id="chart1"></div> --}}
                                 <canvas id="myChart"></canvas>
                             </div>
                             <!--/Graph Card-->
@@ -121,8 +148,7 @@
                 </div>
 
                 <div class="col-span-4 lg:col-span-1 grid sm:grid-cols-2 lg:grid-cols-1 lg:grid-row-2 gap-3">
-                    <div class="col-span-1 lg:col-row-1"
-                         style="height: fit-content;">
+                    <div class="col-span-1 lg:col-row-1" style="height: fit-content;">
                         <div class="bg-white dark:bg-gray-800 dark:text-white overflow-hidden shadow-xl sm:rounded-lg">
                             <!--Graph Card-->
                             <div class="border-b p-3">
@@ -135,15 +161,13 @@
                         <!--/Graph Card-->
 
                         <div
-                             class="mt-5 bg-white dark:bg-gray-800 dark:text-white overflow-hidden shadow-xl sm:rounded-lg">
+                            class="mt-5 bg-white dark:bg-gray-800 dark:text-white overflow-hidden shadow-xl sm:rounded-lg">
                             <!--Graph Card-->
                             <div class="border-b p-3">
                                 <h5 class="font-bold text-black dark:text-white">Traffic Browser</h5>
                             </div>
                             <div class="p-5">
-                                <canvas id="barChart"
-                                        width="100"
-                                        height="100"></canvas>
+                                <canvas id="barChart" width="100" height="100"></canvas>
                             </div>
                         </div>
                         <!--/Graph Card-->
