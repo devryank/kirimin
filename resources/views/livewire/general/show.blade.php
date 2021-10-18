@@ -14,6 +14,8 @@
                     </div>
                     <div class="col-span-4 lg:col-span-6 flex items-center">
                         {{$product->name}}
+                        <br>
+                        {{ "Rp" . number_format($product->price,0,',','.') }}
                     </div>
                     <div class="col-span-4 lg:col-span-4 md:flex md:items-center md:justify-center">
                         @if ($addUnitQty AND $key == $tagId)
