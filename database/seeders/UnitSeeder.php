@@ -20,5 +20,20 @@ class UnitSeeder extends Seeder
         Unit::create([
             'name' => 'liter'
         ]);
+        Unit::create([
+            'name' => 'piece'
+        ]);
+        Unit::create([
+            'name' => 'ikat'
+        ]);
+        Unit::create([
+            'name' => 'unit'
+        ]);
+        Unit::create([
+            'name' => 'piring'
+        ]);
+        Unit::create([
+            'name' => 'gelas'
+        ]);
     }
 }

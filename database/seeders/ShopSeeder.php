@@ -19,7 +19,7 @@ class ShopSeeder extends Seeder
             'id' => Uuid::uuid4()->getHex(),
             'user_id' => 3,
             'address_id' => 1,
-            'name' => 'Warung Saya',
+            'name' => 'Warung Sayur',
             'photo' => 'warung.jpg'
         ]);
         Shop::create([

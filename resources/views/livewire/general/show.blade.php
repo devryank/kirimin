@@ -7,6 +7,9 @@
     <div class="grid grid-cols-12 gap-4 mx-auto">
         <div class="col-span-12 lg:col-start-4 lg:col-span-6">
             <div class="px-2">
+                @if ($products->count() == 0)
+                <h3 class="text-xl font-bold text-center my-5">Tidak ada produk yang tersedia</h3>
+                @endif
                 @foreach ($products as $key => $product)
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-3 lg:col-span-2">
@@ -73,8 +76,8 @@
                                 style="white-space: nowrap">
                                 Beli Eceran
                             </button>
+                            @endif
                         </div>
-                        @endif
                         @endif
                     </div>
                     <div class="col-span-12">
