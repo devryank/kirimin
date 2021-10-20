@@ -21,7 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->integer('qty')->default(0);
             $table->integer('custom_price')->default(0);
-            $table->enum('status', ['cart', 'process', 'waiting', 'delivery', 'failed', 'success']);
+            $table->enum('status', ['cart', 'process', 'waiting', 'delivery', 'empty', 'failed', 'success']);
             $table->timestamps();
 
             $table->foreign('shop_id')->references('id')->on('shops')->onUpdate('cascade')->onDelete('cascade');

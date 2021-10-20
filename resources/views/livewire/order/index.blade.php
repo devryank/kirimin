@@ -2,6 +2,9 @@
     <div wire:loading class="dark:text-white">
         Please wait ...
     </div>
+    @if ($emptyStock)
+    @livewire('order.empty-stock')
+    @endif
     <h1 class="text-3xl text-black dark:text-white pb-6">Pesanan</h1>
 
     @if (session()->has('message'))
@@ -79,23 +82,24 @@
                     style="width:100%; padding-top: 1em; padding-bottom: 1em;">
                     <thead class="bg-gray-800 text-white dark:bg-gray-900">
                         <tr>
-                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Nama Pembeli</th>
-                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Tanggal Pemesanan</th>
-                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Aksi</th>
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Nama Pembeli</th>
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Tanggal Pemesanan</th>
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-700 dark:text-white">
                         @foreach ($transactions as $transaction)
                         <tr>
-                            <td class="w-1/3 text-left py-3 px-4">{{$transaction->user->name}}</td>
-                            <td class="w-1/3 text-left py-3 px-4">
+                            <td class="text-left py-3 px-4">{{$transaction->user->name}}</td>
+                            <td class="text-left py-3 px-4">
                                 {{date('H:i:s - d F Y', strtotime($transaction->created_at))}}
                             </td>
-                            <td class="w-1/3 text-left py-3 px-4">
+                            <td class="text-left py-3 px-4">
                                 <div class="flex space-x-2">
                                     @if ((Auth::user()->hasPermissionTo('read transactions'))
                                     OR Auth::user()->hasRole('super-admin'))
-                                    <button wire:click="showTransaction({{$transaction->user_id}})"
+                                    <button
+                                        wire:click="showTransaction({{$transaction->user_id}}, {{$transaction->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-blue-700 rounded"
                                         onclick="scrollUp()">
                                         Detail
@@ -128,22 +132,29 @@
                 style="width:100%; padding-top: 1em; padding-bottom: 1em;">
                 <thead class="bg-gray-800 text-white dark:bg-gray-900">
                     <tr>
-                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Nama Produk</th>
-                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Jumlah</th>
-                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Harga</th>
+                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Nama Produk</th>
+                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Jumlah</th>
+                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Harga</th>
+                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-700 dark:text-white">
                     @foreach ($items as $item)
                     <tr>
-                        <td class="w-1/3 text-left py-3 px-4">{{$item->product->name}}</td>
-                        <td class="w-1/3 text-left py-3 px-4">
+                        <td class="text-left py-3 px-4">{{$item->product->name}}</td>
+                        <td class="text-left py-3 px-4">
                             {{ $item->qty == 0 ? "Rp " . number_format($item->custom_price,0,',','.') : $item->qty . ' '
                             . $item->product->unit->name }}
                         </td>
-                        <td class="w-1/3 text-left py-3 px-4">
+                        <td class="text-left py-3 px-4">
                             {{ $item->qty == 0 ? "Rp " . number_format($item->custom_price,0,',','.') : "Rp " .
                             number_format($item->qty * $item->product->price,0,',','.') }}
+                        </td>
+                        <td class="text-left py-3 px-4">
+                            <button wire:click="emptyStock({{$item->id}})"
+                                class="px-3 py-2 text-white font-light tracking-wider bg-blue-700 rounded">
+                                Stok Habis
+                            </button>
                         </td>
                     </tr>
                     @endforeach

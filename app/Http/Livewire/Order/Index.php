@@ -14,7 +14,9 @@ class Index extends Component
 
     public $indexTransaction = true;
     public $showTransaction = false;
+    public $emptyStock = false;
 
+    public $trxId;
     public $userId;
     public $items;
     public $total;
@@ -25,6 +27,8 @@ class Index extends Component
         'transactionStored' => 'transactionStoredHandler',
         'transactionUpdate' => 'transactionUpdateHandler',
         'closeTransaction' => 'closeTransactionHandler',
+        'closeStock' => 'closeStockHandler',
+        'successEmptyStock' => 'successEmptyStockHandler',
         'transactionProhibited' => 'transactionProhibitedHandler',
         'transactionDestroyed' => 'transactionDestroyedHandler',
     ];
@@ -50,11 +54,13 @@ class Index extends Component
     {
         $this->indexTransaction = false;
         $this->showTransaction = false;
+        $this->emptyStock = false;
     }
 
-    public function showTransaction($id)
+    public function showTransaction($id, $trxId)
     {
         $this->closeTransactionHandler();
+        $this->trxId = $trxId;
         $this->userId = $id;
         $shop = Shop::where('user_id', Auth::user()->id)->first();
         $this->items = Transaction::where('user_id', $this->userId)->where('status', 'waiting')->where('shop_id', $shop->id)->get();
@@ -72,11 +78,26 @@ class Index extends Component
         session()->flash('message', 'Produk berhasil dibuat');
     }
 
-    public function editTransaction($id)
+    public function emptyStock($id)
     {
         $this->closeTransactionHandler();
-        $this->editTransaction = true;
-        $this->emit('transactionEdit', $id);
+        $this->emptyStock = true;
+        $this->showTransaction = true;
+        $this->emit('emptyStockTrx', $id, $this->trxId);
+    }
+
+    public function closeStockHandler()
+    {
+        $this->closeTransactionHandler();
+        $this->showTransaction = true;
+    }
+
+    public function successEmptyStockHandler($name)
+    {
+        $this->closeTransactionHandler();
+        $this->indexTransaction = true;
+        session()->flash('color', 'green');
+        session()->flash('message', 'Berhasil menghapus ' . $name . ' dari transaksi ini');
     }
 
     public function transactionUpdateHandler()

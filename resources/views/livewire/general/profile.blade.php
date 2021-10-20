@@ -202,6 +202,8 @@
                                 Pengiriman</span>
                             @elseif($trx->status == 'success')
                             <span class="px-2 py-1 bg-green-400 text-white text-sm rounded-full">Selesai</span>
+                            @elseif($trx->status == 'empty')
+                            <span class="px-2 py-1 bg-red-400 text-white text-sm rounded-full">Stok Habis</span>
                             @elseif($trx->status == 'failed')
                             <span class="px-2 py-1 bg-red-400 text-white text-sm rounded-full">Gagal</span>
                             @endif
