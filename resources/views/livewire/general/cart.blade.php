@@ -13,10 +13,12 @@
                     <p class="text-sm md:text-base"><span class="text-gray-500">Nama Barang:</span>
                         {{ $item->product->name }}</p>
                     <p class="text-sm md:text-base"><span class="text-gray-500">Jumlah:</span>
-                        {{ $item->qty == 0 ? "Rp" . number_format($item->custom_price,0,',','.') : $item->qty . ' ' . $item->product->unit->name }}
+                        {{ $item->qty == 0 ? "Rp" . number_format($item->custom_price,0,',','.') : $item->qty . ' ' .
+                        $item->product->unit->name }}
                     </p>
                     <p class="text-sm md:text-base"><span class="text-gray-500">Harga:</span>
-                        {{ $item->qty == 0 ? "Rp" . number_format($item->custom_price,0,',','.') : "Rp" . number_format($item->qty * $item->product->price,0,',','.') }}
+                        {{ $item->qty == 0 ? "Rp" . number_format($item->custom_price,0,',','.') : "Rp" .
+                        number_format($item->qty * $item->product->price,0,',','.') }}
                     </p>
                 </div>
                 <div class="col-span-5 flex items-center">
@@ -43,8 +45,8 @@
                             <button wire:click="cancel"
                                 class="ml-2 px-3 py-2 bg-red-500 text-white text-xs md:text-md">Batal</button>
                             <button wire:click="addToCart({{$item->product->id}})"
-                                class="ml-2 px-3 py-2 bg-green-500 hover:bg-green-600 text-white text-xs md:text-md"
-                                {{ $unitQty < 1 ? 'disabled' : '' }}>Pesan</button>
+                                class="ml-2 px-3 py-2 bg-green-500 hover:bg-green-600 text-white text-xs md:text-md" {{
+                                $unitQty < 1 ? 'disabled' : '' }}>Pesan</button>
                         </div>
                     </div>
 
@@ -55,8 +57,8 @@
                         </div>
                         <div class="col-span-12 flex">
                             <button wire:click="addToCart({{$item->product->id}})"
-                                class="px-3 py-2 bg-green-500 hover:bg-green-600 text-white text-xs md:text-md"
-                                {{ $singleQty < 1 ? 'disabled' : '' }}>Pesan</button>
+                                class="px-3 py-2 bg-green-500 hover:bg-green-600 text-white text-xs md:text-md" {{
+                                $singleQty < 1 ? 'disabled' : '' }}>Pesan</button>
                             <button wire:click="cancel"
                                 class="ml-2 px-3 py-2 bg-red-500 text-white text-xs md:text-md">Batal</button>
                         </div>
@@ -74,8 +76,8 @@
                             style="white-space: nowrap">
                             Beli Eceran
                         </button>
+                        @endif
                     </div>
-                    @endif
                     @endif
                 </div>
             </div>
