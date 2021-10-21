@@ -4,6 +4,7 @@ namespace App\Http\Livewire\General;
 
 use Livewire\Component;
 use App\Models\Transaction;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -79,7 +80,7 @@ class Cart extends Component
         if ($this->unitQty > 0) {
             $trxDuplicate = Transaction::where('user_id', Auth::user()->id)
                 ->where('product_id', $productId)
-                ->where('status', 'waiting')
+                ->where('status', 'cart')
                 ->first();
             if (!empty($trxDuplicate)) { // have a duplicate
                 $trxDuplicate->update([
@@ -99,7 +100,7 @@ class Cart extends Component
         if ($this->singleQty > 0) {
             $trxDuplicate = Transaction::where('user_id', Auth::user()->id)
                 ->where('product_id', $productId)
-                ->where('status', 'waiting')
+                ->where('status', 'cart')
                 ->first();
             if (!empty($trxDuplicate)) { // have a duplicate
                 $trxDuplicate->update([
