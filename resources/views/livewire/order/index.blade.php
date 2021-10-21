@@ -91,6 +91,7 @@
                         @foreach ($transactions as $transaction)
                         <tr>
                             <td class="text-left py-3 px-4">{{$transaction->user->name}}</td>
+
                             <td class="text-left py-3 px-4">
                                 {{date('H:i:s - d F Y', strtotime($transaction->created_at))}}
                             </td>
@@ -127,7 +128,19 @@
 
     @if ($showTransaction)
     <div class="w-full">
+        <p class="text-xl text-white">{{
+            $address->jalan . ' ' .
+            $address->rt . '/' .
+            $address->rw . ' no.' .
+            $address->no . ' ' .
+            $address->kelurahan . ', ' .
+            $address->kecamatan . ', ' .
+            $address->kota . ', ' .
+            $address->provinsi . ', ' .
+            $address->kodepos
+            }}</p>
         <div class="bg-white dark:bg-gray-800 overflow-auto mt-5">
+
             <table class="min-w-full bg-white dark:bg-gray-800"
                 style="width:100%; padding-top: 1em; padding-bottom: 1em;">
                 <thead class="bg-gray-800 text-white dark:bg-gray-900">

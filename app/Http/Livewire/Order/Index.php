@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Order;
 
 use App\Models\Shop;
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Transaction;
 use Livewire\WithPagination;
@@ -20,6 +21,7 @@ class Index extends Component
     public $userId;
     public $items;
     public $total;
+    protected $address;
     public $paginate = 10;
 
     protected $listeners = [
@@ -47,6 +49,7 @@ class Index extends Component
             'transactions' => $transactions,
             'items' => $this->items,
             'total' => $this->total,
+            'address' => $this->address
         ]);
     }
 
@@ -69,6 +72,9 @@ class Index extends Component
             $this->total += $item->qty == 0 ? $item->custom_price : $item->qty * $item->product->price;
         }
         $this->showTransaction = true;
+
+        $user = User::findOrFail($this->userId);
+        $this->address = json_decode($user->address);
     }
 
     public function transactionStoredHandler()
