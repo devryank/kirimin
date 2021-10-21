@@ -43,8 +43,10 @@ class Profile extends Component
     {
         if ($this->profile) {
             $user = User::findOrFail($this->userId);
+            $address = json_decode($user->address);
             return view('livewire.general.profile', [
                 'user' => $user,
+                'address' => $address,
             ])->extends('layouts.general')->section('content');
         }
 

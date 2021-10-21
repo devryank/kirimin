@@ -67,6 +67,22 @@
                         <div class="col-span-9">
                             : {{$user->phone}}
                         </div>
+                        <div class="col-span-3">
+                            Alamat
+                        </div>
+                        <div class="col-span-9">
+                            : {{
+                            $address->jalan . ' ' .
+                            $address->rt . '/' .
+                            $address->rw . ' no.' .
+                            $address->no . ' ' .
+                            $address->kelurahan . ', ' .
+                            $address->kecamatan . ', ' .
+                            $address->kota . ', ' .
+                            $address->provinsi . ', ' .
+                            $address->kodepos
+                            }}
+                        </div>
                     </div>
                 </div>
             </div>
