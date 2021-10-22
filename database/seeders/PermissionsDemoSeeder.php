@@ -88,12 +88,6 @@ class PermissionsDemoSeeder extends Seeder
         $role1->givePermissionTo('read transactions'); // transactions
         $role1->givePermissionTo('delete transactions');
 
-        $role2 = Role::create(['name' => 'admin']);
-        $role2->givePermissionTo('create users'); // users
-        $role2->givePermissionTo('read users');
-        $role2->givePermissionTo('update users');
-        $role2->givePermissionTo('delete users');
-
         $role3 = Role::create(['name' => 'seller']);
         $role3->givePermissionTo('read users'); // users
         $role3->givePermissionTo('update users');
@@ -124,14 +118,6 @@ class PermissionsDemoSeeder extends Seeder
             'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kecamatan' => 'Cilandak Timur', 'kecamatan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
         ]);
         $user->assignRole($role1);
-
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@app.test',
-            'phone' => '085814316629',
-            'address' => json_encode(['jalan' => 'Ampera Raya', 'rt' => '01', 'rw' => '01', 'no' => '45', 'kelurahan' => 'Cilandak Timur', 'kecamatan' => 'Pasar Minggu', 'kota' => 'Jakarta Selatan', 'provinsi' => 'DKI Jakarta', 'kodepos' => '12560'])
-        ]);
-        $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Seller',

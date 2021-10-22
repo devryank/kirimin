@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
     {
         // WARUNG SAYUR
         Product::create([
-            'shop_id' => Shop::where('user_id', 3)->first()->id,
+            'shop_id' => Shop::where('user_id', 2)->first()->id,
             'unit_id' => 1,
             'name' => 'Cabai',
             'price' => 96000,
@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
             'photo' => 'cabai.png'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 3)->first()->id,
+            'shop_id' => Shop::where('user_id', 2)->first()->id,
             'unit_id' => 1,
             'name' => 'Wortel',
             'price' => 15000,
@@ -35,7 +35,7 @@ class ProductSeeder extends Seeder
             'photo' => 'wortel.png'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 3)->first()->id,
+            'shop_id' => Shop::where('user_id', 2)->first()->id,
             'unit_id' => 1,
             'name' => 'Kentang',
             'price' => 16000,
@@ -44,7 +44,7 @@ class ProductSeeder extends Seeder
             'photo' => 'kentang.jpg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 3)->first()->id,
+            'shop_id' => Shop::where('user_id', 2)->first()->id,
             'unit_id' => 1,
             'name' => 'Kol',
             'price' => 4000,
@@ -53,7 +53,7 @@ class ProductSeeder extends Seeder
             'photo' => 'kol.jpg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 3)->first()->id,
+            'shop_id' => Shop::where('user_id', 2)->first()->id,
             'unit_id' => 4,
             'name' => 'Sawi',
             'price' => 5000,
@@ -62,7 +62,7 @@ class ProductSeeder extends Seeder
             'photo' => 'sawi.png'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 3)->first()->id,
+            'shop_id' => Shop::where('user_id', 2)->first()->id,
             'unit_id' => 3,
             'name' => 'Masako Sapi',
             'price' => 500,
@@ -73,7 +73,7 @@ class ProductSeeder extends Seeder
 
         // WARUNG SEMBAKO
         Product::create([
-            'shop_id' => Shop::where('user_id', 5)->first()->id,
+            'shop_id' => Shop::where('user_id', 4)->first()->id,
             'unit_id' => 2,
             'name' => 'Beras',
             'price' => 10000,
@@ -82,7 +82,7 @@ class ProductSeeder extends Seeder
             'photo' => 'beras.jpg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 5)->first()->id,
+            'shop_id' => Shop::where('user_id', 4)->first()->id,
             'unit_id' => 5,
             'name' => 'Gas Elpiji 3kg',
             'price' => 22000,
@@ -91,7 +91,7 @@ class ProductSeeder extends Seeder
             'photo' => 'elpiji.jpg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 5)->first()->id,
+            'shop_id' => Shop::where('user_id', 4)->first()->id,
             'unit_id' => 5,
             'name' => 'Pepsodent',
             'price' => 5000,
@@ -100,7 +100,7 @@ class ProductSeeder extends Seeder
             'photo' => 'pepsodent.jpg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 5)->first()->id,
+            'shop_id' => Shop::where('user_id', 4)->first()->id,
             'unit_id' => 5,
             'name' => 'Sabun Lifebuoy',
             'price' => 3500,
@@ -111,7 +111,7 @@ class ProductSeeder extends Seeder
 
         // WARUNG ANGKRINGAN
         Product::create([
-            'shop_id' => Shop::where('user_id', 6)->first()->id,
+            'shop_id' => Shop::where('user_id', 5)->first()->id,
             'unit_id' => 3,
             'name' => 'Bakwan',
             'price' => 1000,
@@ -120,7 +120,7 @@ class ProductSeeder extends Seeder
             'photo' => 'bakwan.jpeg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 6)->first()->id,
+            'shop_id' => Shop::where('user_id', 5)->first()->id,
             'unit_id' => 3,
             'name' => 'Tempe Bacem',
             'price' => 1000,
@@ -129,7 +129,7 @@ class ProductSeeder extends Seeder
             'photo' => 'tempe-bacem.jpg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 6)->first()->id,
+            'shop_id' => Shop::where('user_id', 5)->first()->id,
             'unit_id' => 6,
             'name' => 'Keong Pedas',
             'price' => 3000,
@@ -138,7 +138,7 @@ class ProductSeeder extends Seeder
             'photo' => 'keong-pedas.jpg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 6)->first()->id,
+            'shop_id' => Shop::where('user_id', 5)->first()->id,
             'unit_id' => 6,
             'name' => 'Nasi Kucing',
             'price' => 3000,
@@ -147,7 +147,7 @@ class ProductSeeder extends Seeder
             'photo' => 'NasiKucing.jpg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 6)->first()->id,
+            'shop_id' => Shop::where('user_id', 5)->first()->id,
             'unit_id' => 7,
             'name' => 'Teh Panas',
             'price' => 3000,
@@ -156,7 +156,7 @@ class ProductSeeder extends Seeder
             'photo' => 'teh.jpeg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 6)->first()->id,
+            'shop_id' => Shop::where('user_id', 5)->first()->id,
             'unit_id' => 7,
             'name' => 'Wedang Jahe',
             'price' => 3500,
@@ -165,7 +165,7 @@ class ProductSeeder extends Seeder
             'photo' => 'wedang-jahe.jpeg'
         ]);
         Product::create([
-            'shop_id' => Shop::where('user_id', 6)->first()->id,
+            'shop_id' => Shop::where('user_id', 5)->first()->id,
             'unit_id' => 7,
             'name' => 'Wedang Susu',
             'price' => 3500,
