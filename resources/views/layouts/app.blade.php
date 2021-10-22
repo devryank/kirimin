@@ -76,7 +76,7 @@
             @if (Auth::user()->hasRole('seller'))
             <a href="{{route('dashboard.product.index')}}"
                 class="flex items-center {{Request::segment(2) == 'products' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
-                <i class="fas fa-box mr-3"></i>
+                <i class="fas fa-boxes mr-3"></i>
                 Produk
             </a>
             @endif
@@ -90,8 +90,14 @@
 
             <a href="{{route('dashboard.delivery.index')}}"
                 class="flex items-center {{Request::segment(2) == 'deliveries' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
-                <i class="fas fa-box mr-3"></i>
+                <i class="fas fa-parachute-box mr-3"></i>
                 Pengiriman
+            </a>
+
+            <a href="{{route('dashboard.history.index')}}"
+                class="flex items-center {{Request::segment(2) == 'histories' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
+                <i class="fas fa-box-open mr-3"></i>
+                Riwayat
             </a>
             @endif
 

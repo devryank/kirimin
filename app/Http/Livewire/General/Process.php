@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Process extends Component
 {
-    public $method;
+    public $method = 1;
 
     public function render()
     {
