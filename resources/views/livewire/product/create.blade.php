@@ -42,7 +42,7 @@
                             <small class="text-red-500">{{$message}}</small>
                             @enderror
                         </div>
-                        <div class="col-span-6 text-white">
+                        <div class="col-span-6 dark:text-white">
                             <label class="block text-sm text-gray-600 dark:text-white" for="customPrice">Pembeli boleh
                                 membeli
                                 eceran?</label>
